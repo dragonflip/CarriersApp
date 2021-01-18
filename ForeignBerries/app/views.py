@@ -12,11 +12,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib import messages
 from .forms import CreateUserForm
-
+from .decorators import *
 
 def index(request):
     return render(request, 'app/index.html')
 
+@unauthenticated_user
 def login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -34,6 +35,7 @@ def login(request):
     context = {}
     return render(request, 'app/login.html', context)
 
+@unauthenticated_user
 def register(request):
     form = CreateUserForm()
 
