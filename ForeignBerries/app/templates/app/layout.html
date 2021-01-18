@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+    <form>
+         {% if user.is_authenticated %}
+        <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow" >
+            {% load static %} 
+             <a class="my-0 mr-md-auto font-weight-normal" style="color: black" href="{% url 'main' %}"><b>Polish berries</b> </a>
+             <nav class="my-2 my-md-0 mr-md-3">
+             <a class="p-2 text-dark" href="#">Витрати</a>
+             <a class="p-2 text-dark" href="#">Рейси</a>
+             <a class="p-2 text-dark" href="#">Замовлення</a>
+             <a class="p-2 text-dark" href="#">Водії</a>
+             </nav>
+            
+            <span style="background-color: #0679f5; border-radius: 50px; margin-right: 2px" class="p-2 text-dark "><font color="white">{{request.user}}</font> </span>
+             <a class="btn btn-outline-primary" href="{% url 'logout' %}">Log out</a>
+         </div>
+         {% else %}
+         <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow" >
+             <a class="my-0 mr-md-auto font-weight-normal" style="color: black" href="{% url 'main' %}"><b>Polish berries</b> </a>
+             <nav class="my-2 my-md-0 mr-md-3">
+             <a class="btn btn-outline-primary" href="{% url 'login' %}">Sign up/Log in</a>
+             </nav>
+         </div>
+         {% endif %}
+
+        {% block content %}
+
+        {% endblock %}
+        </form>
+</body>
+</html>
