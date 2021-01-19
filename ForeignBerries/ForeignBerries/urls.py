@@ -7,6 +7,7 @@ from django.urls import path
 from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
 from app import forms, views
+from app.views import VerificationView
 
 
 urlpatterns = [
@@ -15,4 +16,6 @@ urlpatterns = [
     path('logout', views.logoutUser, name='logout'),
     path('register', views.register, name='register'),
     path('admin/', admin.site.urls),
+    path('activate/<uidb64>/<token>',
+         VerificationView.as_view(), name='activate'),
    ]

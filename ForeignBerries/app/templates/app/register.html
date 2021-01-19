@@ -24,9 +24,10 @@
         <p>There are errors in the form!</p>
         {% endif %}
 
-        {{ form.username }}
+        {{ form.email }}
+        {{ form.first_name }}
+        {{ form.last_name }}
         {{ form.password1 }}
-        {{ form.password2 }}
 
         <button class="mt-2 btn-lg btn-primary btn-block" type="submit" value="register">Sign in</button>
         {{ form.errors }}
@@ -34,6 +35,10 @@
             Вже є акаунт?
             <a href="{% url 'login' %}">Увійти</a>
         </p>
+
+        {% for message in messages %}
+        <p id="messages"> {{ message }}</p>
+        {% endfor %}
     </form>
 </body>
 </html>
