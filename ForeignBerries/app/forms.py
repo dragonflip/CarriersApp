@@ -48,7 +48,7 @@ class CreateUserForm(UserCreationForm):
 
         self.fields['email'].widget.attrs['class'] = 'form-control'
         self.fields['email'].widget.attrs['required'] = True
-        self.fields['email'].widget.attrs['placeholder'] = 'email'
+        self.fields['email'].widget.attrs['placeholder'] = 'Електронна пошта'
         self.fields['email'].widget.attrs['autofocus'] = True
 
         self.fields['first_name'].widget.attrs['class'] = 'form-control mt-2'

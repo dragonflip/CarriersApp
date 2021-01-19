@@ -97,7 +97,7 @@ def register(request):
 
                 activate_url = 'http://'+current_site.domain+link
 
-                email_body = 'Привіт '+user.username + ', дякуємо за реєстрацію на сайті! ' + activate_url
+                email_body = 'Привіт '+user.first_name + '! Для підтвердження реєстрації перейдіть за посиланням: \n' + activate_url
 
                 email_subject = 'Успішна реєстрація'
 
@@ -105,11 +105,12 @@ def register(request):
                     email_subject,
                     email_body,
                     settings.EMAIL_HOST_USER,
-                    ['victorianastiuk@gmail.com'],
+                    [email],
                     )
 
                 email_mes.send(fail_silently=False)
-                #return redirect('login')
+                messages.success(request, 'На вашу пошту був надісланий лист з посиланням для підтвердження реєстрації.')
+                return redirect('login')
             else:
                 messages.info(request, 'Введена електронна пошта прив\'язана до іншого акаунта.')
 
@@ -135,7 +136,7 @@ class VerificationView(View):
             user.is_active = True
             user.save()
 
-            messages.success(request, 'Account activated successfully')
+            messages.success(request, 'Акаунт був успішно активований.')
             return redirect('login')
 
         except Exception as ex:
