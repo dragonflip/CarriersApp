@@ -7,6 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.auth import views as auth_views
 
 #class BootstrapAuthenticationForm(AuthenticationForm):
 #    """Authentication form which uses boostrap CSS."""
@@ -66,3 +67,26 @@ class CreateUserForm(UserCreationForm):
         #self.fields['password2'].widget.attrs['class'] = 'form-control mt-2'
         #self.fields['password2'].widget.attrs['required'] = True
         #self.fields['password2'].widget.attrs['placeholder'] = 'Confirm password'
+
+
+class CustomResetPassword(auth_views.PasswordResetForm):
+    def __init__(self, *args, **kwargs):
+        super(CustomResetPassword, self).__init__(*args, **kwargs)
+
+        self.fields['email'].widget.attrs['class'] = 'form-control'
+        self.fields['email'].widget.attrs['required'] = True
+        self.fields['email'].widget.attrs['placeholder'] = 'Електронна пошта'
+        self.fields['email'].widget.attrs['autofocus'] = True
+
+class CustomSetPassword(auth_views.SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super(CustomSetPassword, self).__init__(*args, **kwargs)
+
+        self.fields['new_password1'].widget.attrs['class'] = 'form-control mt-2'
+        self.fields['new_password1'].widget.attrs['required'] = True
+        self.fields['new_password1'].widget.attrs['placeholder'] = 'Пароль'
+
+        self.fields['new_password2'].widget.attrs['class'] = 'form-control mt-2'
+        self.fields['new_password2'].widget.attrs['required'] = True
+        self.fields['new_password2'].widget.attrs['placeholder'] = 'Підтвердження пароля'
+

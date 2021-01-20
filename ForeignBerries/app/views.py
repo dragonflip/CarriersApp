@@ -97,7 +97,7 @@ def register(request):
 
                 activate_url = 'http://'+current_site.domain+link
 
-                email_body = 'Привіт '+user.first_name + '! Для підтвердження реєстрації перейдіть за посиланням: \n' + activate_url
+                email_body = 'Привіт, ' + user.first_name + '! Для підтвердження реєстрації перейдіть за посиланням: \n' + activate_url
 
                 email_subject = 'Успішна реєстрація'
 
@@ -143,3 +143,6 @@ class VerificationView(View):
             pass
 
         return redirect('login')
+
+
+
