@@ -1,0 +1,76 @@
+html, body {
+	height: 100%;
+}
+
+body {
+	background: #f5f5f5;
+}
+
+header {
+	background: url('https://2meetme.files.wordpress.com/2017/08/o-road-trip-facebook.jpg') 0 30%;
+	background-size: cover;
+	color: #fff;
+}
+
+header .container {
+	max-width: 960px;
+}
+
+.bg-light {
+	background: none !important;
+}
+
+.navbar-light .navbar-brand {
+	color: #fff;
+}
+
+.navbar-brand {
+	line-height: 55px;
+	font-size: 22px;
+	font-family: unispace;
+}
+
+.navbar-light .navbar-brand:hover {
+	color: #ccc;
+}
+
+form .col-auto {
+	padding: 3px;
+}
+
+form.row .col-auto input, form.row .col-auto button {
+	width: 228px;
+}
+
+form.row {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.filter .btn-light {
+	background: #fff;
+}
+
+.filter .btn-light:hover {
+	background: #fafafa;
+}
+
+.ticket {
+	background: #fff;
+	padding: 20px;
+	border: 1px solid #dc3545;
+	margin-top: 20px;
+	border-radius: .5rem;
+}
+
+.about-direction .name, .about-direction .time {
+	font-weight: bold;
+}
+
+.about-direction {
+	font-size: 14px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+	color: #fff;
+}
