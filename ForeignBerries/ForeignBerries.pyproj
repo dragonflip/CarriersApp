@@ -72,7 +72,9 @@
     <Content Include="db.sqlite3" />
     <Content Include="app\templates\app\about.html" />
     <Content Include="app\templates\app\index.html" />
-    <Content Include="app\templates\app\layout.html" />
+    <Content Include="app\templates\app\layout.html">
+      <Publish>True</Publish>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.html">
