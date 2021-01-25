@@ -17,6 +17,11 @@ urlpatterns = [
     path('login', views.login, name='login'),
     path('logout', views.logoutUser, name='logout'),
     path('register', views.register, name='register'),
+
+    path('search', views.search, name='search'),
+    path('buy', views.buy, name='buy'),
+    path('success', views.success, name='success'),
+
     path('admin/', admin.site.urls),
     path('activate/<uidb64>/<token>',
          VerificationView.as_view(), name='activate'),
