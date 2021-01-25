@@ -119,7 +119,19 @@ def register(request):
 
 def logoutUser(request):
     logout(request)
-    return redirect('login')
+    return redirect('main')
+
+
+
+def search(request):
+    return render(request, 'app/search.html')
+
+def buy(request):
+    return render(request, 'app/buy.html')
+
+def success(request):
+    return render(request, 'app/success.html')
+
 
 
 class VerificationView(View):
