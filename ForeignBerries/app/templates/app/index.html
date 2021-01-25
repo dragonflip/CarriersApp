@@ -1,13 +1,26 @@
-{% extends "app/layout.html" %}
+{% include 'app/layouts/header.html' %}
 
-{% block title %}
-Main Page
-{% endblock %}
+<header style="height: 100vh;">
+	<div class="container">
+		<div class="row">
+			<h1 class="text-center" style="font-weight: 400; margin-top: 32vh;">Міжнародні перевезення</h1>
+			<h3 class="text-center" style="font-weight: 300;">пошук квитків на автобус</h3>
+			<form action="/search" method="GET" class="row" style="margin-top: 70px;">
+				<div class="col-auto">
+					<input class="form-control form-control-lg" placeholder="Звідки" required autofocus>
+				</div>
+				<div class="col-auto">
+					<input class="form-control form-control-lg" placeholder="Куди" required>
+				</div>
+				<div class="col-auto">
+					<input class="form-control form-control-lg" placeholder="Дата поїздки" required>
+				</div>
+				<div class="col-auto">
+					<button class="btn btn-danger btn-lg btn-block" placeholder="Кількість пасажирів">Знайти квиток</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</header>
 
-{% block content %}
-<form class="form-signin text-center" style="width: 35%; margin: 0 auto;" >
-    <h1>main page</h1>
-    <p>text</p>
-    </form>
-
-{% endblock %}
+{% include 'app/layouts/footer.html' %}

@@ -1,0 +1,103 @@
+{% include 'app/layouts/header.html' %}
+
+<header style="height: 280px; background-position: 0 -200px;">
+	<div class="container">
+		<div class="row">
+			<h3 style="font-weight: 300; margin-top: 130px;">Оформлення квитка</h3>
+			<h1 style="font-weight: 400;">Коломия - Варшава</h1>
+		</div>
+	</div>
+</header>
+<div class="container" style="max-width: 960px; padding-top: 20px;">
+	<div class="row">
+		<div class="col-md-8">
+			<form action="/success" method="GET" style="background: #fff; width: fit-content; padding: 40px; border-radius: 10px; box-shadow: 0 0 10px #cdcdcd;">
+				<h3 style="font-weight: 400;">Оформлення квитка</h3><hr>
+				<div class="row">
+					<h5 style="font-weight: 300;">Інформація про покупця</h5>
+					<div class="col-md-6">
+						<input class="form-control form-control-lg" placeholder="Ім'я" required autofocus>
+					</div>
+					<div class="col-md-6">
+						<input class="form-control form-control-lg" placeholder="Прізвище" required>
+					</div>
+				</div>
+				<div class="row mt-4">
+					<h5 style="font-weight: 300;">Дані для зв'язку</h5>
+					<div class="col-md-6">
+						<input class="form-control form-control-lg" placeholder="E-mail" required>
+					</div>
+					<div class="col-md-6">
+						<input class="form-control form-control-lg" placeholder="Телефон" required>
+					</div>
+				</div>
+				<div class="row mt-4">
+					<h5 style="font-weight: 300;">Місце в автобусі</h5>
+					<div class="col-md-6">
+						<input type="number" class="form-control form-control-lg" min="1" placeholder="Кількість місць" required>
+					</div>
+					<div class="col-md-6">
+						<select class="form-select form-select-lg">
+							<option>Дорослий</option>
+							<option>Дитячий</option>
+						</select>
+					</div>
+				</div>
+				<div class="row mt-4">
+					<div class="col-md-12">
+						<div class="form-check">
+							<input type="checkbox" class="form-check-input" id="check">
+							<label class="form-check-label" for="check">
+								Використовувати мої реєстраційні дані для заповнення квитка
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row mt-4">
+					<div class="col-md-6">
+						<h4 style="font-weight: 300;">До сплати</h4>
+					</div>
+					<div class="col-md-6">
+						<h4 style="font-weight: 300;" class="text-end">497,95 грн</h4>
+					</div>
+				</div>
+				<hr class="mt-3">
+				<div class="row mt-3">
+					<div class="col-md-12">
+						<button class="btn btn-danger btn-lg" style="width: 100%;">Перейти до оплати</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="col-md-4 about-direction" style="background: #fff; padding: 30px; height: fit-content; border-radius: 10px; box-shadow: 0 0 10px #cdcdcd;">
+			<h3 style="font-weight: 400;">Про рейс</h3><hr>
+			<div class="from">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="time">19:15</div>
+						<div class="date">22.01.2021</div>
+					</div>
+					<div class="col-md-8">
+						<div class="name">Коломия</div>
+						<div class="stop">Автовокзал Коломия, вулиця Бориса Антоненка-Давидовича; будинок 15</div>
+					</div>
+				</div>
+			</div>
+			<img src="https://static.thenounproject.com/png/156637-200.png" width="85" style="margin-top: -50px; margin-left: -10px;">
+			<div class="from mt-4">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="time">22:40</div>
+						<div class="date">23.01.2021</div>
+					</div>
+					<div class="col-md-8">
+						<div class="name">Варшава</div>
+						<div class="stop">Автовокзал Варашава, вулиця Бориса Антоненка-Давидовича; будинок 15</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% include 'app/layouts/footer.html' %}

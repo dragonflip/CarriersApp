@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>BUS4YOU - міжнародні перевезення</title>
+	<link rel="icon" href="{% static 'app/img/logo.png' %}">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+</head>
+<body>
+	<nav class="navbar navbar-light bg-light" style="background: rgba(0, 0, 0, 0.4) !important; margin-bottom: -81px;">
+		<div class="container">
+			<a class="navbar-brand" href="/">
+				<img src="{% static 'app/img/logo.gif' %}" width="50" class="d-inline-block align-top" style="border-radius: 50%;">
+				BUS4YOU
+			</a>
+			<div class="d-flex align-items-center">
+				{% if user.is_authenticated and user.groups.all.0.name == "admin" %}
+					<ul class="navbar-nav flex-row">
+						<li class="nav-item p-2 px-4">
+							<a href="#" class="nav-link">Витрати</a>
+						</li>
+						<li class="nav-item p-2 px-4">
+							<a href="#" class="nav-link">Рейси</a>
+						</li>
+						<li class="nav-item p-2 px-4">
+							<a href="#" class="nav-link">Замовлення</a>
+						</li>
+						<li class="nav-item p-2 px-4">
+							<a href="#" class="nav-link">Водії</a>
+						</li>
+					</ul>
+					<span class="badge bg-danger p-3">Адмін: {{request.user}}</span>
+					<a class="btn btn-outline-light mx-2" href="/logout">Вийти</a>
+				{% elif user.is_authenticated %}
+					<ul class="navbar-nav flex-row">
+						<li class="nav-item p-2 px-4">
+							<a href="#" class="nav-link">Мої квитки</a>
+						</li>
+					</ul>
+					<span class="badge bg-danger p-3">{{request.user}}</span>
+					<a class="btn btn-outline-light mx-2" href="/logout">Вийти</a>
+				{% else %}
+					<a href="/login" class="btn btn-outline-light">Особистий кабінет</a>
+				{% endif %}
+			</div>
+		</div>
+	</nav>
