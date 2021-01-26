@@ -1,0 +1,54 @@
+﻿{% include 'app/layouts/header.html' %}
+
+<div class="row" style="margin: 100px auto; width:70%">
+    <div class="d-flex justify-content-end">
+        <div class="col-md">
+            <div class="card card-body">
+                <h5>Автобуси</h5>
+                <form method="get" class="row" action="{% url 'busses' %}" style="margin: auto;">
+                    <div class="col-auto">
+                        <input class="form-control form-control-lg" type="search" aria-label="Search" placeholder="Пошук..." name="search" align="right">
+                    </div>
+
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-outline-info" align="right">Знайти автобус</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md">
+        <div class="card card-body">
+            <table class="table">
+                <tr>
+                    <th>Виробник</th>
+                    <th>Модель</th>
+                    <th>Рік випуску</th>
+                    <th>Державний номер</th>
+                    <th>Номер кузова</th>
+                    <th>Розхід палива</th>
+
+                </tr>
+
+                {% for i in buses %}
+                <tr>
+                    <td>{{i.company}}</td>
+                    <td>{{i.model}}</td>
+                    <td>{{i.yearOfIssue}}</td>
+                    <td>{{i.number}}</td>
+                    <td>{{i.VinNumber}}</td>
+                    <td>{{i.fuelConsumption}}</td>
+
+                    <td><a class="btn btn-sm btn-info" href="{% url 'update_bus' i.id %}">Update</a></td>
+                    <td><a class="btn btn-sm btn-danger" href="{% url 'delete_bus' i.id %}">Delete</a></td>
+                </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+    <a class="btn btn-sm btn-danger" href="{% url 'add_bus' %}">Додати автобус</a>
+</div>
+
+
+{% include 'app/layouts/footer.html' %}

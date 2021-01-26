@@ -1,0 +1,24 @@
+﻿{% include 'app/layouts/header.html' %}
+
+<div class="row" style="margin: 100px auto; width:80%">>
+    <div class="col-md-6">
+        <div class="card card-body">
+
+            <p>Ви справді хочете видати автобус "{{bus}}"?</p>
+
+
+            <form action="{% url 'delete_bus' bus.id %}" method="POST">
+                {% csrf_token %}
+
+                <a class="btn btn-warning" href="{% url 'busses' %}">
+                    Назад
+                </a>
+
+                <button class="btn btn-danger" type="submit" name="Confirm">Так</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include 'app/layouts/footer.html' %}

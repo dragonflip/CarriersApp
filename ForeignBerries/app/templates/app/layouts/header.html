@@ -22,16 +22,16 @@
 				{% if user.is_authenticated and user.groups.all.0.name == "admin" %}
 					<ul class="navbar-nav flex-row">
 						<li class="nav-item p-2 px-4">
-							<a href="#" class="nav-link">Витрати</a>
+							<a href= "{% url 'busses' %}" class="nav-link">Автобуси</a>
 						</li>
 						<li class="nav-item p-2 px-4">
 							<a href="#" class="nav-link">Рейси</a>
 						</li>
 						<li class="nav-item p-2 px-4">
-							<a href="#" class="nav-link">Замовлення</a>
+							<a href="#" class="nav-link">Продані квитки</a>
 						</li>
 						<li class="nav-item p-2 px-4">
-							<a href="#" class="nav-link">Водії</a>
+							<a href="#" class="nav-link">Статистика</a>
 						</li>
 					</ul>
 					<span class="badge bg-danger p-3">Адмін: {{request.user}}</span>
@@ -45,7 +45,7 @@
 					<span class="badge bg-danger p-3">{{request.user}}</span>
 					<a class="btn btn-outline-light mx-2" href="/logout">Вийти</a>
 				{% else %}
-					<a href="/login" class="btn btn-outline-light">Особистий кабінет</a>
+					<a href= "{% url 'authorization:login' %}" class="btn btn-outline-light">Увійти</a>
 				{% endif %}
 			</div>
 		</div>

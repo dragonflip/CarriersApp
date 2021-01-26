@@ -1,0 +1,36 @@
+﻿{% include 'app/layouts/header.html' %}
+
+<div class="row" style="margin: 100px auto; width:80%">
+	<div class="col-md-6">
+		<div class="card card-body">
+
+            <form action="" method="post">
+
+              {% csrf_token %}
+
+                <h6> Виробник: </h6>
+                {{ form.company }}
+
+                <h6> Модель: </h6>
+                {{ form.model }}
+
+                <h6> Рік випуску: </h6>
+                {{ form.yearOfIssue }}
+
+                <h6> Державний номер: </h6>
+                {{ form.number }}
+
+                <h6> Номер кузова: </h6>
+                {{ form.VinNumber }}
+
+                <h6> Розхід палива: </h6>
+                {{ form.fuelConsumption }}
+    
+              <input class="btn btn-info mt-2" type="submit" name="Sumbit">
+
+            </form>
+        </div>
+	</div>
+</div>
+
+{% include 'app/layouts/footer.html' %}
