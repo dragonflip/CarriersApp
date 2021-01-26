@@ -14,7 +14,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # for password reset
-    path(r'^reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(
         template_name='app/password_reset_new.html', 
         form_class=CustomSetPassword,
         success_url=reverse_lazy('authorization:password_reset_complete')), name='password_reset_confirm'),

@@ -1,0 +1,57 @@
+﻿{% include 'app/layouts/header.html' %}
+
+<div class="row" style="margin: 100px auto; width:70%">
+    <div class="d-flex justify-content-end">
+        <div class="col-md">
+            <div class="card card-body">
+                <h5>Рейси</h5>
+                <form method="get" class="row" action="{% url 'journeys' %}" style="margin: auto;">
+                    <div class="col-auto">
+                        <input class="form-control form-control-lg" type="search" aria-label="Search" placeholder="Пошук..." name="search" align="right">
+                    </div>
+
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-outline-info" align="right">Знайти рейс</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md">
+        <div class="card card-body">
+            <table class="table">
+                <tr>
+                    <th>Автобус</th>
+                    <th>Номер маршруту</th>
+                    <th>Звідки</th>
+                    <th>Куди</th>
+                    <th>Час відправлення</th>
+                    <th>Час прибуття</th>
+                    <th>Повна відстань</th>
+
+                </tr>
+
+                {% for i in journey %}
+                <tr>
+                    <td>{{i.bus}}</td>
+                    <td>{{i.number}}</td>
+                    <td>{{i.fromWhere}}</td>
+                    <td>{{i.whereTo}}</td>
+                    <td>{{i.DepartureTime}}</td>
+                    <td>{{i.ArrivalTime}}</td>
+                    <td>{{i.FullDistance}}</td>
+
+                    <td><a class="btn btn-sm btn-warning" href="{% url 'journey_stations' i.id %}">Stations</a></td>
+                    <td><a class="btn btn-sm btn-info" href="{% url 'update_journey' i.id %}">Update</a></td>
+                    <td><a class="btn btn-sm btn-danger" href="{% url 'delete_journey' i.id %}">Delete</a></td>
+                </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+    <a class="btn btn-sm btn-danger" href="{% url 'add_journey' %}">Додати рейс</a>
+</div>
+
+
+{% include 'app/layouts/footer.html' %}

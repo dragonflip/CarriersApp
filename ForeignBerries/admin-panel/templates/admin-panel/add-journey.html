@@ -1,0 +1,39 @@
+﻿{% include 'app/layouts/header.html' %}
+
+<div class="row" style="margin: 100px auto; width:80%">
+	<div class="col-md-6">
+		<div class="card card-body">
+
+            <form action="" method="post">
+
+              {% csrf_token %}
+
+                <h6> Автобус: </h6>
+                {{ form.bus }}
+
+                <h6> Номер маршруту: </h6>
+                {{ form.number }}
+
+                <h6> Звідки: </h6>
+                {{ form.fromWhere }}
+
+                <h6> Куди: </h6>
+                {{ form.whereTo }}
+
+                <h6> Час відправлення: </h6>
+                {{ form.DepartureTime }}
+
+                <h6> Час прибуття: </h6>
+                {{ form.ArrivalTime }}
+
+                <h6> Повна відстань між початковою та кінцевою зупинками: </h6>
+                {{ form.FullDistance }}
+    
+              <input class="btn btn-info mt-2" type="submit" name="Sumbit">
+
+            </form>
+        </div>
+	</div>
+</div>
+
+{% include 'app/layouts/footer.html' %}

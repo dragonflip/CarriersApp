@@ -341,3 +341,4 @@ healthchecksdb
 
 
 .env
+/ForeignBerries/admin-panel/migrations

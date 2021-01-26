@@ -25,13 +25,13 @@
 							<a href= "{% url 'busses' %}" class="nav-link">Автобуси</a>
 						</li>
 						<li class="nav-item p-2 px-4">
-							<a href="#" class="nav-link">Рейси</a>
+							<a href="{% url 'journeys' %}" class="nav-link">Рейси</a>
 						</li>
 						<li class="nav-item p-2 px-4">
-							<a href="#" class="nav-link">Продані квитки</a>
+							<a href="{% url 'tickets' %}" class="nav-link">Продані квитки</a>
 						</li>
 						<li class="nav-item p-2 px-4">
-							<a href="#" class="nav-link">Статистика</a>
+							<a href="{% url 'statistics' %}" class="nav-link">Статистика</a>
 						</li>
 					</ul>
 					<span class="badge bg-danger p-3">Адмін: {{request.user}}</span>
