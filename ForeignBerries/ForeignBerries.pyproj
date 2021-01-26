@@ -90,6 +90,7 @@
     <Content Include="admin-panel\templates\admin-panel\delete-bus.html" />
     <Content Include="admin-panel\templates\admin-panel\journey-stations.html" />
     <Content Include="admin-panel\templates\admin-panel\journeys.html" />
+    <Content Include="admin-panel\templates\admin-panel\schedule.html" />
     <Content Include="admin-panel\templates\admin-panel\statistics.html" />
     <Content Include="admin-panel\templates\admin-panel\tickets.html" />
     <Content Include="app\templates\app\login.html" />

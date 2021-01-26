@@ -13,12 +13,18 @@ class Bus(models.Model):
         return self.number
 
 class Journey(models.Model):
+    Days = (
+        ('Крім неділі', 'Крім неділі'),
+        ('По буднях', 'По буднях'),
+    )
+
     bus = models.ForeignKey(Bus,on_delete=models.CASCADE,blank=False,default = '')
     number = models.CharField(max_length=10,blank=False,default = '')
     fromWhere = models.CharField(max_length=60,blank=False,default = '')
     whereTo = models.CharField(max_length=60,blank=False,default = '')
     DepartureTime = models.TimeField(auto_now=False,blank=False,default = '')
     ArrivalTime = models.TimeField(auto_now=False,blank=False,default = '')
+    DaysOfDeparture = models.CharField(max_length=20, choices=Days, default = 'Крім неділі')
     FullDistance = models.FloatField(max_length=10,blank=False,default = '')
 
     def __str__(self):
@@ -35,6 +41,13 @@ class Station(models.Model):
     def __str__(self):
         return self.stationName
 
+class Schedule(models.Model):
+    journey_id = models.ForeignKey(Journey, related_name='journeys', on_delete=models.CASCADE)
+    DepartureDate = models.DateField()
+    status = models.CharField(max_length=20, blank=False, default = '')
+
+    def __str__(self):
+        return str(self.journey_id) + ' ' + str(self.DepartureDate)
 
 class Ticket(models.Model):
     Types = (

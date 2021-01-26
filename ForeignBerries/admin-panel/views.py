@@ -1,3 +1,5 @@
+import datetime 
+from datetime import date, timedelta, datetime
 from django.shortcuts import render, redirect
 from django.db.models.functions import Concat, Lower
 from django.db.models import Sum, Q, Count, F, CharField, Value
@@ -6,6 +8,9 @@ from .models import *
 from .forms import *
 
 def index(request):
+    if request.user.groups.filter(name = 'admin').exists():
+        update(request)
+
     return render(request, 'app/index.html')
 
 def busses(request):
@@ -155,6 +160,35 @@ def statistics(request):
     context = {'total_sold' : total_sold,  'jrns' : jrns, 'dat' : dat, 'datan' : datan, 'js' : js}
     return render(request, 'admin-panel/statistics.html', context)
 
+def schedule(request):
+    schedule = Schedule.objects.all()
+    context = {'schedule' : schedule}
+    return render(request, 'admin-panel/schedule.html', context)
+
+def update(request):
+    date_now = date.today()
+
+    last_day = date_now + timedelta(days=7)
+
+    delta = timedelta(days=1)
+
+    Schedule.objects.filter(DepartureDate__lt = date_now).delete()
+
+    while date_now <= last_day:        
+        dates = Schedule.objects.filter(DepartureDate = date_now)
+        if not dates.exists():
+            journeys = Journey.objects.all()
+
+            weekday = date_now.weekday() 
+            for j in journeys:
+                if j.DaysOfDeparture == 'по буднях' and weekday != 5 and weekday != 6:
+                    newObj = Schedule(journey_id = j, DepartureDate = date_now)
+                    newObj.save()
+
+                if j.DaysOfDeparture.lower() == 'крім неділі' and weekday != 6:
+                    newObj = Schedule(journey_id = j, DepartureDate = date_now)
+                    newObj.save()
+        date_now += delta
 
 def search(request):
     return render(request, 'app/search.html')

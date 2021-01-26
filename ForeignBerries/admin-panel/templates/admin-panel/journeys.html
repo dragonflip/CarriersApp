@@ -1,6 +1,6 @@
 ﻿{% include 'app/layouts/header.html' %}
 
-<div class="row" style="margin: 100px auto; width:70%">
+<div class="row" style="margin: 100px auto; width:90%">
     <div class="d-flex justify-content-end">
         <div class="col-md">
             <div class="card card-body">
@@ -27,6 +27,7 @@
                     <th>Куди</th>
                     <th>Час відправлення</th>
                     <th>Час прибуття</th>
+                    <th>Дні відправлення</th>
                     <th>Повна відстань</th>
 
                 </tr>
@@ -39,6 +40,7 @@
                     <td>{{i.whereTo}}</td>
                     <td>{{i.DepartureTime}}</td>
                     <td>{{i.ArrivalTime}}</td>
+                    <td>{{i.DaysOfDeparture}}</td>
                     <td>{{i.FullDistance}}</td>
 
                     <td><a class="btn btn-sm btn-warning" href="{% url 'journey_stations' i.id %}">Stations</a></td>

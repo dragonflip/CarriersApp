@@ -1,0 +1,37 @@
+﻿{% include 'app/layouts/header.html' %}
+
+<div class="row" style="margin: 100px auto; width:70%">
+
+    <h2> Розклад відправлень </h2>
+
+    <div class="col-md">
+        <div class="card card-body">
+            <table class="table">
+                <tr>
+                    <th>Назва маршруту</th>
+                    <th>Початкова зупинка</th>
+                    <th>Кінцева зупинка</th>
+                    <th>Дата відправлення</th>
+
+                </tr>
+
+                {% for i in schedule %}
+					<tr>
+                        <td>{{ i.journey_id }}</td>
+
+
+                        <td> </td>
+                        <td> </td>
+						
+						
+                        <td>{{ i.DepartureDate }}</td>
+					</tr>
+				{% endfor %}
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% include 'app/layouts/footer.html' %}
