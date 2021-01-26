@@ -19,9 +19,9 @@
 
 	<button class="btn btn-lg btn-danger w-100 mb-3">Увійти</button>
 
-	<a href="/reset_password" class="link-danger">Забули пароль?</a>
+	<a href="{% url 'authorization:reset_password' %}" class="link-danger">Забули пароль?</a>
 	<p class="mt-2">Немає акаунту?
-		<a href="/register" class="link-danger">Зареєструватись</a>
+		<a href="{% url 'authorization:register' %}" class="link-danger">Зареєструватись</a>
 	</p>
 
 	{% for message in messages %}

@@ -45,7 +45,7 @@ def login(request):
             else:
                 messages.error(
                 request, 'Account is not active,please check your email')
-            return render(request, 'login.html')
+            return render(request, 'app/login.html')
 
             auth_login(request, user)
             return redirect('main')
@@ -90,7 +90,7 @@ def register(request):
                     'token': account_activation_token.make_token(user),
                 }
 
-                link = reverse('activate', kwargs={
+                link = reverse('authorization:activate', kwargs={
                                'uidb64': email_body['uid'], 'token': email_body['token']})
 
                 email_subject = 'Activate your account'
@@ -110,7 +110,7 @@ def register(request):
 
                 email_mes.send(fail_silently=False)
                 messages.success(request, 'На вашу пошту був надісланий лист з посиланням для підтвердження реєстрації.')
-                return redirect('login')
+                return redirect('authorization:login')
             else:
                 messages.info(request, 'Введена електронна пошта прив\'язана до іншого акаунта.')
 
@@ -123,14 +123,6 @@ def logoutUser(request):
 
 
 
-def search(request):
-    return render(request, 'app/search.html')
-
-def buy(request):
-    return render(request, 'app/buy.html')
-
-def success(request):
-    return render(request, 'app/success.html')
 
 
 
@@ -141,20 +133,20 @@ class VerificationView(View):
             user = User.objects.get(pk=id)
 
             if not account_activation_token.check_token(user, token):
-                return redirect('login'+'?message='+'Account already activated.')
+                return redirect('authorization:login'+'?message='+'Account already activated.')
 
             if user.is_active:
-                return redirect('login')
+                return redirect('authorization:login')
             user.is_active = True
             user.save()
 
             messages.success(request, 'Акаунт був успішно активований.')
-            return redirect('login')
+            return redirect('authorization:login')
 
         except Exception as ex:
             pass
 
-        return redirect('login')
+        return redirect('authorization:login')
 
 
 

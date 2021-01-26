@@ -30,8 +30,7 @@ ALLOWED_HOSTS = []
 # Application references
 # https://docs.djangoproject.com/en/2.1/ref/settings/#std:setting-INSTALLED_APPS
 INSTALLED_APPS = [
-    'app',
-    'admin-panel',
+   
     # Add your apps here to enable them
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib',
+
+    'app',
+    'admin-panel',
 ]
 
 # Middleware framework

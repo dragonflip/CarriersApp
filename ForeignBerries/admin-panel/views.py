@@ -54,3 +54,12 @@ def delete_bus(request, bus_id):
     context = {'bus' : bus}
     return render(request, 'admin-panel/delete-bus.html', context) 
 
+def search(request):
+    return render(request, 'app/search.html')
+
+def buy(request):
+    return render(request, 'app/buy.html')
+
+def success(request):
+    return render(request, 'app/success.html')
+

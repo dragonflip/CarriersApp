@@ -35,7 +35,7 @@
 						</li>
 					</ul>
 					<span class="badge bg-danger p-3">Адмін: {{request.user}}</span>
-					<a class="btn btn-outline-light mx-2" href="/logout">Вийти</a>
+					<a class="btn btn-outline-light mx-2" href="{% url 'authorization:logout' %}">Вийти</a>
 				{% elif user.is_authenticated %}
 					<ul class="navbar-nav flex-row">
 						<li class="nav-item p-2 px-4">
@@ -43,7 +43,7 @@
 						</li>
 					</ul>
 					<span class="badge bg-danger p-3">{{request.user}}</span>
-					<a class="btn btn-outline-light mx-2" href="/logout">Вийти</a>
+					<a class="btn btn-outline-light mx-2" href="{% url 'authorization:logout' %}">Вийти</a>
 				{% else %}
 					<a href= "{% url 'authorization:login' %}" class="btn btn-outline-light">Увійти</a>
 				{% endif %}
