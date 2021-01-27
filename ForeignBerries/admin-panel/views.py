@@ -191,8 +191,8 @@ def statistics(request):
     return render(request, 'admin-panel/statistics.html', context)
 
 def schedule(request):
-    schedule = Schedule.objects.all()
-    context = {'schedule' : schedule}
+    journeys = Journey.objects.all()
+    context = { 'journeys' : journeys }
     return render(request, 'admin-panel/schedule.html', context)
 
 def update(request):

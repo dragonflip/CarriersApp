@@ -11,16 +11,20 @@
 				<th>Дата відправлення</th>
 			</tr>
 
-			{% for i in schedule %}
-			<tr>
-				<td>{{ i.journey_id }}</td>
+             {% for journey in journeys %}
+             {% for sch in journey.journeys.all %}
+             <tr>
+                   <td>{{ sch.journey_id }}</td>
 
-				<td></td>
-				<td></td>
 
-				<td>{{ i.DepartureDate }}</td>
-			</tr>
-			{% endfor %}
+                   <td> {{ journey.fromWhere }} </td>
+                   <td> {{ journey.whereTo }} </td>
+            
+            
+                   <td>{{ sch.DepartureDate }}</td>
+             </tr>
+            {% endfor %}
+            {% endfor %}
 		</table>
 	</div>
 </div>
