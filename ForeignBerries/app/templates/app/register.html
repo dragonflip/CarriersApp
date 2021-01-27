@@ -1,27 +1,27 @@
 ﻿{% include 'app/layouts/header.html' %}
 
-<form method="post" action="" class="form-signin text-center" style="max-width: 400px; margin: calc(50vh - 240px) auto;" >
+<form method="post" class="text-center" style="max-width: 400px; margin: calc(50vh - 240px) auto;" >
 	{% csrf_token %}
 	{% load static %}
 
 	<img class="mb-4" src="{% static 'app/img/logo.gif' %}" width="90" style="border-radius: 50%;">
-	<h1 class="h3 mb-3 font-weight-normal">Реєстрація</h1>
+	<h1 class="h3 mb-3">Реєстрація</h1>
 
-    {{ form.email }}
-    {{ form.first_name }}
-    {{ form.last_name }}
-    {{ form.password1 }}
+	{{ form.email }}
+	{{ form.first_name }}
+	{{ form.last_name }}
+	{{ form.password1 }}
 
-    <button class="btn btn-lg btn-danger w-100 mb-3 mt-2" type="submit" value="register">Зареєструватись</button>
-    {{ form.errors }}
-    <p class="mt-2">Вже є акаунт?
+	<button class="btn btn-lg btn-danger w-100 mb-3 mt-2" value="register">Зареєструватись</button>
+	{{ form.errors }}
+
+	<p class="mt-2">Вже є акаунт?
 		<a href="{% url 'authorization:login' %}" class="link-danger">Увійти</a>
 	</p>
 
-
-    {% for message in messages %}
-    <p id="messages"> {{ message }}</p>
-    {% endfor %}
+	{% for message in messages %}
+	<p id="messages"> {{ message }}</p>
+	{% endfor %}
 </form>
 
 {% include 'app/layouts/footer.html' %}
