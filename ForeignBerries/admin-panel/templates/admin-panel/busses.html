@@ -1,54 +1,79 @@
 ﻿{% include 'app/layouts/header.html' %}
 
-<div class="row" style="margin: 100px auto; width:70%">
-    <div class="d-flex justify-content-end">
-        <div class="col-md">
-            <div class="card card-body">
-                <h5>Автобуси</h5>
-                <form method="get" class="row" action="{% url 'busses' %}" style="margin: auto;">
-                    <div class="col-auto">
-                        <input class="form-control form-control-lg" type="search" aria-label="Search" placeholder="Пошук..." name="search" align="right">
-                    </div>
+<div class="container" style="margin: 100px auto;">
+	<h2>Автобуси</h2>
+	<div class="d-flex justify-content-center mb-2">
+		<form method="get" class="row" action="{% url 'busses' %}" style="width: 400px;">
+			<div class="d-flex">
+				<input class="form-control" placeholder="Пошук..." name="search" autofocus>
+				<button class="btn btn-outline-dark mx-1">
+					<i class="bi bi-search"></i>
+				</button>
+			</div>
+		</form>
+	</div>
+	<div class="card card-body">
+		<table class="table align-middle">
+			<tr>
+				<th>Виробник</th>
+				<th>Модель</th>
+				<th>Рік випуску</th>
+				<th>Державний номер</th>
+				<th>Номер кузова</th>
+				<th>Розхід палива</th>
+				<th>Дія</th>
+			</tr>
 
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-outline-info" align="right">Знайти автобус</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-md">
-        <div class="card card-body">
-            <table class="table">
-                <tr>
-                    <th>Виробник</th>
-                    <th>Модель</th>
-                    <th>Рік випуску</th>
-                    <th>Державний номер</th>
-                    <th>Номер кузова</th>
-                    <th>Розхід палива</th>
+			{% for i in buses %}
+			<tr>
+				<td>{{i.company}}</td>
+				<td>{{i.model}}</td>
+				<td>{{i.yearOfIssue}}</td>
+				<td>{{i.number}}</td>
+				<td>{{i.VinNumber}}</td>
+				<td>{{i.fuelConsumption}}</td>
 
-                </tr>
+				<td class="d-flex">
+					<a class="btn btn-outline-primary" href="{% url 'update_bus' i.id %}">
+						<i class="bi bi-pencil"></i>
+					</a>
+					<a class="btn btn-outline-danger mx-1" href="{% url 'delete_bus' i.id %}">
+						<i class="bi bi-trash"></i>
+					</a>
+				</td>
+			</tr>
+			{% endfor %}
 
-                {% for i in buses %}
-                <tr>
-                    <td>{{i.company}}</td>
-                    <td>{{i.model}}</td>
-                    <td>{{i.yearOfIssue}}</td>
-                    <td>{{i.number}}</td>
-                    <td>{{i.VinNumber}}</td>
-                    <td>{{i.fuelConsumption}}</td>
+			<tr>
+				<form method="POST" action="{% url 'add_bus' %}">
+					<td>
+						<input class="form-control" placeholder="Виробник">
+					</td>
+					<td>
+						<input class="form-control" placeholder="Модель">
+					</td>
+					<td>
+						<input class="form-control" placeholder="Рік випуску">
+					</td>
+					<td>
+						<input class="form-control" placeholder="Державний номер">
+					</td>
+					<td>
+						<input class="form-control" placeholder="Номер кузова">
+					</td>
+					<td>
+						<input class="form-control" placeholder="Розхід палива">
+					</td>
+					<td>
+						<a class="btn btn-outline-dark" href="{% url 'add_bus' %}" style="width: 100%;">Додати</a>
 
-                    <td><a class="btn btn-sm btn-info" href="{% url 'update_bus' i.id %}">Update</a></td>
-                    <td><a class="btn btn-sm btn-danger" href="{% url 'delete_bus' i.id %}">Delete</a></td>
-                </tr>
-                {% endfor %}
-
-            </table>
-        </div>
-    </div>
-    <a class="btn btn-sm btn-danger" href="{% url 'add_bus' %}">Додати автобус</a>
+						<!-- Поставиш цю кнопку, коли зробиш робочу форму -->
+						<!-- <button class="btn btn-outline-dark" style="width: 100%;">Додати</button> -->
+					</td>
+				</form>
+			</tr>
+		</table>
+	</div>
 </div>
-
 
 {% include 'app/layouts/footer.html' %}

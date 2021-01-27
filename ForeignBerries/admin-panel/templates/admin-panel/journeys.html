@@ -1,59 +1,91 @@
 ﻿{% include 'app/layouts/header.html' %}
 
-<div class="row" style="margin: 100px auto; width:90%">
-    <div class="d-flex justify-content-end">
-        <div class="col-md">
-            <div class="card card-body">
-                <h5>Рейси</h5>
-                <form method="get" class="row" action="{% url 'journeys' %}" style="margin: auto;">
-                    <div class="col-auto">
-                        <input class="form-control form-control-lg" type="search" aria-label="Search" placeholder="Пошук..." name="search" align="right">
-                    </div>
+<div class="container" style="margin: 100px auto;">
+	<h2>Рейси</h2>
+	<div class="d-flex justify-content-center mb-2">
+		<form method="get" class="row" action="{% url 'busses' %}" style="width: 400px;">
+			<div class="d-flex">
+				<input class="form-control" placeholder="Пошук..." name="search" autofocus>
+				<button class="btn btn-outline-dark mx-1">
+					<i class="bi bi-search"></i>
+				</button>
+			</div>
+		</form>
+	</div>
+	<div class="card card-body">
+		<table class="table align-middle">
+			<tr>
+				<th>Автобус</th>
+				<th>№ маршруту</th>
+				<th>Звідки</th>
+				<th>Куди</th>
+				<th>Час відправлення</th>
+				<th>Час прибуття</th>
+				<th>Дні відправлення</th>
+				<th>Повна відстань</th>
+				<th>Дія</th>
+			</tr>
 
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-outline-info" align="right">Знайти рейс</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-md">
-        <div class="card card-body">
-            <table class="table">
-                <tr>
-                    <th>Автобус</th>
-                    <th>Номер маршруту</th>
-                    <th>Звідки</th>
-                    <th>Куди</th>
-                    <th>Час відправлення</th>
-                    <th>Час прибуття</th>
-                    <th>Дні відправлення</th>
-                    <th>Повна відстань</th>
+			{% for i in journey %}
+			<tr>
+				<td>{{i.bus}}</td>
+				<td>{{i.number}}</td>
+				<td>{{i.fromWhere}}</td>
+				<td>{{i.whereTo}}</td>
+				<td>{{i.DepartureTime}}</td>
+				<td>{{i.ArrivalTime}}</td>
+				<td>{{i.DaysOfDeparture}}</td>
+				<td>{{i.FullDistance}}</td>
 
-                </tr>
+				<!-- <td><a class="btn btn-sm btn-warning" href="{% url 'journey_stations' i.id %}">Stations</a></td> -->
+				<td class="d-flex">
+					<a class="btn btn-outline-primary" href="{% url 'update_journey' i.id %}">
+						<i class="bi bi-pencil"></i>
+					</a>
+					<a class="btn btn-outline-danger mx-1" href="{% url 'delete_journey' i.id %}">
+						<i class="bi bi-trash"></i>
+					</a>
+				</td>
+			</tr>
+			{% endfor %}
 
-                {% for i in journey %}
-                <tr>
-                    <td>{{i.bus}}</td>
-                    <td>{{i.number}}</td>
-                    <td>{{i.fromWhere}}</td>
-                    <td>{{i.whereTo}}</td>
-                    <td>{{i.DepartureTime}}</td>
-                    <td>{{i.ArrivalTime}}</td>
-                    <td>{{i.DaysOfDeparture}}</td>
-                    <td>{{i.FullDistance}}</td>
+			<tr>
+				<form method="POST" action="{% url 'add_journey' %}">
+					<td>
+						<input class="form-control" placeholder="Автобус">
+					</td>
+					<td>
+						<input class="form-control" placeholder="№ маршруту">
+					</td>
+					<td>
+						<input class="form-control" placeholder="Звідки">
+					</td>
+					<td>
+						<input class="form-control" placeholder="Куди">
+					</td>
+					<td>
+						<input class="form-control" placeholder="Час відправлення">
+					</td>
+					<td>
+						<input class="form-control" placeholder="Час прибуття">
+					</td>
+					<td>
+						<input class="form-control" placeholder="Дні відправлення">
+					</td>
+					<td>
+						<input class="form-control" placeholder="Повна відстань">
+					</td>
+					<td>
+						<a class="btn btn-outline-dark" href="{% url 'add_journey' %}" style="width: 100%;">Додати</a>
 
-                    <td><a class="btn btn-sm btn-warning" href="{% url 'journey_stations' i.id %}">Stations</a></td>
-                    <td><a class="btn btn-sm btn-info" href="{% url 'update_journey' i.id %}">Update</a></td>
-                    <td><a class="btn btn-sm btn-danger" href="{% url 'delete_journey' i.id %}">Delete</a></td>
-                </tr>
-                {% endfor %}
-
-            </table>
-        </div>
-    </div>
-    <a class="btn btn-sm btn-danger" href="{% url 'add_journey' %}">Додати рейс</a>
+						<!-- Поставиш цю кнопку, коли зробиш робочу форму -->
+						<!-- <button class="btn btn-outline-dark" style="width: 100%;">Додати</button> -->
+					</td>
+				</form>
+			</tr>
+		</table>
+	</div>
+	
 </div>
-
 
 {% include 'app/layouts/footer.html' %}

@@ -1,50 +1,40 @@
 ﻿{% include 'app/layouts/header.html' %}
 
-<div class="row" style="margin: 100px auto; width:70%">
-    <div class="d-flex justify-content-end">
-        <div class="col-md">
-            <div class="card card-body">
-                <h5>Продані квитки</h5>
-                <form method="get" class="row" action="{% url 'tickets' %}" style="margin: auto;">
-                    <div class="col-auto">
-                        <input class="form-control form-control-lg" type="search" aria-label="Search" placeholder="Пошук..." name="search" align="right">
-                    </div>
+<div class="container" style="margin: 100px auto;">
+	<h2>Продані квитки</h2>
+	<div class="d-flex justify-content-center mb-2">
+		<form method="get" class="row" action="{% url 'busses' %}" style="width: 400px;">
+			<div class="d-flex">
+				<input class="form-control" placeholder="Пошук..." name="search" autofocus>
+				<button class="btn btn-outline-dark mx-1">
+					<i class="bi bi-search"></i>
+				</button>
+			</div>
+		</form>
+	</div>
+	<div class="card card-body">
+		<table class="table">
+			<tr>
+				<th>Ім'я</th>
+				<th>Прізвище</th>
+				<th>Рейс</th>
+				<th>Ціна</th>
+				<th>Дата</th>
+				<th>Тип</th>
+			</tr>
 
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-outline-info" align="right">Знайти квиток</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-md">
-        <div class="card card-body">
-            <table class="table">
-                <tr>
-                    <th>Ім'я</th>
-                    <th>Прізвище</th>
-                    <th>Рейс</th>
-                    <th>Ціна</th>
-                    <th>Дата</th>
-                    <th>Тип</th>
-
-                </tr>
-
-                {% for i in tickets %}
-					<tr>
-						<td>{{i.buyerName}}</td>
-						<td>{{i.buyerSurname}}</td>
-						<td>{{i.journey}}</td>
-						<td>{{i.price}}</td>
-						<td>{{i.date}}</td>
-						<td>{{i.type}}</td>
-					</tr>
-				{% endfor %}
-
-            </table>
-        </div>
-    </div>
+			{% for i in tickets %}
+				<tr>
+					<td>{{i.buyerName}}</td>
+					<td>{{i.buyerSurname}}</td>
+					<td>{{i.journey}}</td>
+					<td>{{i.price}}</td>
+					<td>{{i.date}}</td>
+					<td>{{i.type}}</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
 </div>
-
 
 {% include 'app/layouts/footer.html' %}

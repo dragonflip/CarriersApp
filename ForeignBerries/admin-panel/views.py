@@ -143,21 +143,51 @@ def statistics(request):
     datan = request.POST.get('validol', '')
     jrns = Journey.objects.all()
     js = 'не обрано'
+    total_sold = 0
     if request.method == 'POST':
         jrnsbus = request.POST.get('jrns', '')
         js = jrnsbus
         if jrnsbus == 'не обрано':
-            total_sold = 0
+            total_tickets = 0
+            total_jrns = 0
+            total_tickets_N = 0
+            total_tickets_K = 0
+
         elif dat and datan and jrnsbus != 'None':
             total_sold = (Ticket.objects.filter(journey = Journey.objects.get(number=jrnsbus)).filter(Q(date__gte = dat) & Q(date__lte = datan)).aggregate(total_sold=Sum('price')))
+            total_tickets = (Ticket.objects.filter(journey = Journey.objects.get(number=jrnsbus)).filter(Q(date__gte = dat) & Q(date__lte = datan)).count())
+            total_tickets_N = (Ticket.objects.filter(journey = Journey.objects.get(number=jrnsbus)).filter(Q(date__gte = dat) & Q(date__lte = datan)).filter(type = 'Дорослий').count())
+            total_tickets_K = (Ticket.objects.filter(journey = Journey.objects.get(number=jrnsbus)).filter(Q(date__gte = dat) & Q(date__lte = datan)).filter(type = 'Дитячий').count())
+            datetime_object = datetime.strptime(dat, '%Y-%m-%d')  
+            datetime_object = datetime.strptime(dat, '%Y-%m-%d')  
+            total_jrns = (Schedule.objects.filter(journey_id = Journey.objects.get(number=jrnsbus)).filter(Q(DepartureDate__gte = dat) & Q(DepartureDate__lte = datan)).count())
+            
         elif dat and datan and jrnsbus == 'None':
+            total_tickets = (Ticket.objects.filter(Q(date__gte = dat) & Q(date__lte = datan)).count())
             total_sold = (Ticket.objects.filter(Q(date__gte = dat) & Q(date__lte = datan)).aggregate(total_sold=Sum('price')))
+            total_tickets_N = (Ticket.objects.filter(Q(date__gte = dat) & Q(date__lte = datan)).filter(type = 'Дорослий').count())
+            total_tickets_K = (Ticket.objects.filter(Q(date__gte = dat) & Q(date__lte = datan)).filter(type = 'Дитячий').count())
+            datetime_object = datetime.strptime(dat, '%Y-%m-%d')  
+            datetime_object = datetime.strptime(dat, '%Y-%m-%d') 
+            total_jrns = (Schedule.objects.filter(Q(DepartureDate__gte = dat) & Q(DepartureDate__lte = datan)).count())   
+            
         else:
-            total_sold = 6
+            total_sold = 0
+            total_tickets = 0
+            total_jrns = 0
+            total_tickets_N = 0
+            total_tickets_K = 0
     else :
-        total_sold = 3
+        total_sold = 0
+        total_tickets = 0
+        total_jrns = 0
+        total_tickets_N = 0
+        total_tickets_K = 0
 
-    context = {'total_sold' : total_sold,  'jrns' : jrns, 'dat' : dat, 'datan' : datan, 'js' : js}
+    if total_sold != 0:
+        total_sold = total_sold['total_sold']
+
+    context = {'total_sold' : total_sold,  'jrns' : jrns, 'dat' : dat, 'datan' : datan, 'js' : js, 'total_tickets' : total_tickets, 'total_jrns' : total_jrns, 'total_tickets_N' : total_tickets_N, 'total_tickets_K' : total_tickets_K}
     return render(request, 'admin-panel/statistics.html', context)
 
 def schedule(request):

@@ -1,37 +1,28 @@
 ﻿{% include 'app/layouts/header.html' %}
 
-<div class="row" style="margin: 100px auto; width:70%">
+<div class="container" style="margin: 100px auto;">
+	<h2>Розклад відправлень</h2>
+	<div class="card card-body">
+		<table class="table">
+			<tr>
+				<th>Назва маршруту</th>
+				<th>Початкова зупинка</th>
+				<th>Кінцева зупинка</th>
+				<th>Дата відправлення</th>
+			</tr>
 
-    <h2> Розклад відправлень </h2>
+			{% for i in schedule %}
+			<tr>
+				<td>{{ i.journey_id }}</td>
 
-    <div class="col-md">
-        <div class="card card-body">
-            <table class="table">
-                <tr>
-                    <th>Назва маршруту</th>
-                    <th>Початкова зупинка</th>
-                    <th>Кінцева зупинка</th>
-                    <th>Дата відправлення</th>
+				<td></td>
+				<td></td>
 
-                </tr>
-
-                {% for i in schedule %}
-					<tr>
-                        <td>{{ i.journey_id }}</td>
-
-
-                        <td> </td>
-                        <td> </td>
-						
-						
-                        <td>{{ i.DepartureDate }}</td>
-					</tr>
-				{% endfor %}
-
-            </table>
-        </div>
-    </div>
+				<td>{{ i.DepartureDate }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
 </div>
-
 
 {% include 'app/layouts/footer.html' %}
