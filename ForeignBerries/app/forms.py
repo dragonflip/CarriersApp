@@ -47,20 +47,20 @@ class CreateUserForm(UserCreationForm):
         self.fields['username'].required = False 
         self.fields['password2'].required = False 
 
-        self.fields['email'].widget.attrs['class'] = 'form-control'
+        self.fields['email'].widget.attrs['class'] = 'form-control form-control-lg'
         self.fields['email'].widget.attrs['required'] = True
         self.fields['email'].widget.attrs['placeholder'] = 'Електронна пошта'
         self.fields['email'].widget.attrs['autofocus'] = True
 
-        self.fields['first_name'].widget.attrs['class'] = 'form-control mt-2'
+        self.fields['first_name'].widget.attrs['class'] = 'form-control form-control-lg mt-2'
         self.fields['first_name'].widget.attrs['required'] = True
         self.fields['first_name'].widget.attrs['placeholder'] = 'Введіть ім\'я'
 
-        self.fields['last_name'].widget.attrs['class'] = 'form-control mt-2'
+        self.fields['last_name'].widget.attrs['class'] = 'form-control form-control-lg mt-2'
         self.fields['last_name'].widget.attrs['required'] = True
         self.fields['last_name'].widget.attrs['placeholder'] = 'Введіть прізвище'
 
-        self.fields['password1'].widget.attrs['class'] = 'form-control mt-2'
+        self.fields['password1'].widget.attrs['class'] = 'form-control form-control-lg mt-2'
         self.fields['password1'].widget.attrs['required'] = True
         self.fields['password1'].widget.attrs['placeholder'] = 'Пароль'
 
@@ -73,7 +73,7 @@ class CustomResetPassword(auth_views.PasswordResetForm):
     def __init__(self, *args, **kwargs):
         super(CustomResetPassword, self).__init__(*args, **kwargs)
 
-        self.fields['email'].widget.attrs['class'] = 'form-control'
+        self.fields['email'].widget.attrs['class'] = 'form-control form-control-lg'
         self.fields['email'].widget.attrs['required'] = True
         self.fields['email'].widget.attrs['placeholder'] = 'Електронна пошта'
         self.fields['email'].widget.attrs['autofocus'] = True
@@ -82,11 +82,11 @@ class CustomSetPassword(auth_views.SetPasswordForm):
     def __init__(self, *args, **kwargs):
         super(CustomSetPassword, self).__init__(*args, **kwargs)
 
-        self.fields['new_password1'].widget.attrs['class'] = 'form-control mt-2'
+        self.fields['new_password1'].widget.attrs['class'] = 'form-control form-control-lg mt-2'
         self.fields['new_password1'].widget.attrs['required'] = True
         self.fields['new_password1'].widget.attrs['placeholder'] = 'Пароль'
 
-        self.fields['new_password2'].widget.attrs['class'] = 'form-control mt-2'
+        self.fields['new_password2'].widget.attrs['class'] = 'form-control form-control-lg mt-2'
         self.fields['new_password2'].widget.attrs['required'] = True
         self.fields['new_password2'].widget.attrs['placeholder'] = 'Підтвердження пароля'
 
