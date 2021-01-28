@@ -211,7 +211,7 @@ def update(request):
 
             weekday = date_now.weekday() 
             for j in journeys:
-                if j.DaysOfDeparture == 'по буднях' and weekday != 5 and weekday != 6:
+                if j.DaysOfDeparture.lower() == 'по буднях' and weekday != 5 and weekday != 6:
                     newObj = Schedule(journey_id = j, DepartureDate = date_now)
                     newObj.save()
 

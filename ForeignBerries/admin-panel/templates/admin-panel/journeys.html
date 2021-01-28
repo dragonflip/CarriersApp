@@ -45,6 +45,9 @@
 					<a class="btn btn-outline-danger mx-1" href="{% url 'delete_journey' i.id %}">
 						<i class="bi bi-trash"></i>
 					</a>
+					<a class="btn btn-outline-dark" href="{% url 'journey_stations' i.id %}">
+						Зупинки
+					</a>
 				</td>
 			</tr>
 			{% endfor %}
