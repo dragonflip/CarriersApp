@@ -94,12 +94,15 @@
     <Content Include="admin-panel\templates\admin-panel\schedule.html" />
     <Content Include="admin-panel\templates\admin-panel\statistics.html" />
     <Content Include="admin-panel\templates\admin-panel\tickets.html" />
+    <Content Include="app\templates\app\buy.html" />
     <Content Include="app\templates\app\login.html" />
     <Content Include="app\templates\app\password_reset_complete.html" />
     <Content Include="app\templates\app\register.html" />
     <Content Include="app\templates\app\password_reset.html" />
     <Content Include="app\templates\app\password_reset_sent.html" />
     <Content Include="app\templates\app\password_reset_new.html" />
+    <Content Include="app\templates\app\search.html" />
+    <Content Include="app\templates\app\success.html" />
     <Content Include="requirements.txt" />
     <Content Include="app\templates\app\about.html" />
     <Content Include="app\templates\app\index.html" />

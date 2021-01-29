@@ -5,15 +5,15 @@
 		<div class="row">
 			<h1 class="text-center" style="font-weight: 400; margin-top: 32vh;">Міжнародні перевезення</h1>
 			<h3 class="text-center" style="font-weight: 300;">пошук квитків на автобус</h3>
-			<form action="/search" method="GET" class="row" style="margin-top: 70px;">
+			<form action="{% url 'search' %}" method="GET" class="row" style="margin-top: 70px;">
 				<div class="col-auto">
-					<input class="form-control form-control-lg" placeholder="Звідки" required autofocus>
+					<input class="form-control form-control-lg" placeholder="Звідки" name="fromWhere" required autofocus>
 				</div>
 				<div class="col-auto">
-					<input class="form-control form-control-lg" placeholder="Куди" required>
+					<input class="form-control form-control-lg" placeholder="Куди" name="whereTo" required>
 				</div>
 				<div class="col-auto">
-					<input class="form-control form-control-lg" placeholder="Дата поїздки" required>
+					<input class="form-control form-control-lg" type="date" placeholder="Дата поїздки" name="date" required>
 				</div>
 				<div class="col-auto">
 					<button class="btn btn-danger btn-lg">Знайти квиток</button>

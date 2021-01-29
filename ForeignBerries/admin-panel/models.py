@@ -35,13 +35,16 @@ class Station(models.Model):
     journey = models.ForeignKey(Journey,on_delete=models.CASCADE,blank=False,default = '')
     stationName = models.CharField(max_length=60,blank=False,default = '')
     distanceFromStart = models.FloatField(max_length=10,blank=False,default = '')
-    stationArrivalTime = models.DateTimeField(auto_now=False,blank=False,default = '')
-    stationDepartureTime = models.DateTimeField(auto_now=False,blank=False,default = '')
+    stationArrivalTime = models.TimeField(auto_now=False,blank=False,default = '')
+    stationDepartureTime = models.TimeField(auto_now=False,blank=False,default = '')
 
     def __str__(self):
         return self.stationName
 
 class Schedule(models.Model):
+    class Meta:
+        ordering = ['DepartureDate']
+
     journey_id = models.ForeignKey(Journey, related_name='journeys', on_delete=models.CASCADE)
     DepartureDate = models.DateField()
     status = models.CharField(max_length=20, blank=False, default = '')
