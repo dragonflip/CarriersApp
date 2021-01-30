@@ -4,7 +4,9 @@
 	<div class="container">
 		<div class="row">
 			<h3 style="font-weight: 300; margin-top: 130px;">Оформлення квитка</h3>
-			<h1 style="font-weight: 400;">Коломия - Варшава</h1>
+			{% for el in journey%}
+			<h1 style="font-weight: 400;">{{el.fromWhere}} - {{el.whereTo}}</h1>
+			{%endfor%}
 		</div>
 	</div>
 </header>
@@ -55,7 +57,7 @@
 						<h4 style="font-weight: 300;">До сплати</h4>
 					</div>
 					<div class="col-md-6">
-						<h4 style="font-weight: 300;" class="text-end">497,95 грн</h4>
+						<h4 style="font-weight: 300;" class="text-end">{{price}}грн</h4>
 					</div>
 				</div>
 				<hr class="mt-3">

@@ -22,7 +22,7 @@ urlpatterns = [
     path('schedule/', views.schedule, name = 'schedule'),
 
     path('search', views.search, name='search'),
-    path('buy', views.buy, name='buy'),
+    path('buy/<str:id>&<str:price>', views.buy, name='buy'),
     path('success', views.success, name='success'),
     ]
 

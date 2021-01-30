@@ -1,12 +1,12 @@
 ﻿{% include 'app/layouts/header.html' %}
 
 <div class="row" style="margin: 100px auto; width:80%">
-	<div class="col-md-6">
-		<div class="card card-body">
+    <div class="col-md-6">
+        <div class="card card-body">
 
-            <form action="{% url 'add_journey'%}" method="post">
+            <form action="" method="post">
 
-              {% csrf_token %}
+                {% csrf_token %}
 
                 <h6> Автобус: </h6>
                 {{ form.bus }}
@@ -17,14 +17,8 @@
                 <h6> Звідки: </h6>
                 {{ form.fromWhere }}
 
-                <h6> Адреса початкової точки: </h6>
-                <input  name="startAdr" class="form-control mb-2" required>
-
                 <h6> Куди: </h6>
                 {{ form.whereTo }}
-
-                <h6> Адреса кінцевої точки: </h6>
-                <input name="finalAdr" class="form-control mb-2" required>
 
                 <h6> Час відправлення: </h6>
                 {{ form.DepartureTime }}
@@ -38,11 +32,11 @@
                 <h6> Повна відстань між початковою та кінцевою зупинками: </h6>
                 {{ form.FullDistance }}
 
-              <input class="btn btn-info mt-2" type="submit" name="Sumbit">
+                <input class="btn btn-info mt-2" type="submit" name="Sumbit">
 
             </form>
         </div>
-	</div>
+    </div>
 </div>
 
 {% include 'app/layouts/footer.html' %}

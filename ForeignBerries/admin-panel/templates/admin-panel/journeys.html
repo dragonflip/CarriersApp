@@ -51,44 +51,12 @@
 				</td>
 			</tr>
 			{% endfor %}
-
-			<tr>
-				<form method="POST" action="{% url 'add_journey' %}">
-					<td>
-						<input class="form-control" placeholder="Автобус">
-					</td>
-					<td>
-						<input class="form-control" placeholder="№ маршруту">
-					</td>
-					<td>
-						<input class="form-control" placeholder="Звідки">
-					</td>
-					<td>
-						<input class="form-control" placeholder="Куди">
-					</td>
-					<td>
-						<input class="form-control" placeholder="Час відправлення">
-					</td>
-					<td>
-						<input class="form-control" placeholder="Час прибуття">
-					</td>
-					<td>
-						<input class="form-control" placeholder="Дні відправлення">
-					</td>
-					<td>
-						<input class="form-control" placeholder="Повна відстань">
-					</td>
-					<td>
-						<a class="btn btn-outline-dark" href="{% url 'add_journey' %}" style="width: 100%;">Додати</a>
-
-						<!-- Поставиш цю кнопку, коли зробиш робочу форму -->
-						<!-- <button class="btn btn-outline-dark" style="width: 100%;">Додати</button> -->
-					</td>
-				</form>
-			</tr>
 		</table>
+
 	</div>
-	
+	<div class="mt-2 mx-5" align ="right">
+		<a class="btn btn-outline-dark" href="{% url 'add_journey' %}" style="width: 15%; ">Додати</a>
+	</div>
 </div>
 
 {% include 'app/layouts/footer.html' %}

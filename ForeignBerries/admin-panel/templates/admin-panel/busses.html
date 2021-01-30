@@ -43,37 +43,14 @@
 				</td>
 			</tr>
 			{% endfor %}
-
-			<tr>
-				<form method="POST" action="{% url 'add_bus' %}">
-					<td>
-						<input class="form-control" placeholder="Виробник">
-					</td>
-					<td>
-						<input class="form-control" placeholder="Модель">
-					</td>
-					<td>
-						<input class="form-control" placeholder="Рік випуску">
-					</td>
-					<td>
-						<input class="form-control" placeholder="Державний номер">
-					</td>
-					<td>
-						<input class="form-control" placeholder="Номер кузова">
-					</td>
-					<td>
-						<input class="form-control" placeholder="Розхід палива">
-					</td>
-					<td>
-						<a class="btn btn-outline-dark" href="{% url 'add_bus' %}" style="width: 100%;">Додати</a>
-
-						<!-- Поставиш цю кнопку, коли зробиш робочу форму -->
-						<!-- <button class="btn btn-outline-dark" style="width: 100%;">Додати</button> -->
-					</td>
-				</form>
-			</tr>
 		</table>
+		
 	</div>
+
+	<div class="mt-2 mx-5" align ="right">
+		<a class="btn btn-outline-dark" href="{% url 'add_bus' %}" style="width: 10%; ">Додати</a>
+	</div>
+
 </div>
 
 {% include 'app/layouts/footer.html' %}

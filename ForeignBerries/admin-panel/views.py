@@ -61,6 +61,8 @@ def delete_bus(request, bus_id):
     return render(request, 'admin-panel/delete-bus.html', context) 
 
 def add_journey(request):
+    startAdr_query = request.POST.get('startAdr','')
+    finalAdr_query = request.POST.get('finalAdr','')
     form = JourneyForm()
 
     if request.method == 'POST':
@@ -79,10 +81,10 @@ def add_journey(request):
                 FullDistance = j['FullDistance']
 
 
-            newStation1 = Station(journey = last_journey, stationName = fromWhere, distanceFromStart = 0, stationArrivalTime = DepartureTime, stationDepartureTime = DepartureTime)
+            newStation1 = Station(journey = last_journey, stationName = fromWhere, distanceFromStart = 0, stationArrivalTime = DepartureTime, stationDepartureTime = DepartureTime, address = startAdr_query)
             newStation1.save()
 
-            newStation2 = Station(journey = last_journey, stationName = whereTo, distanceFromStart = FullDistance, stationArrivalTime = ArrivalTime, stationDepartureTime = ArrivalTime)
+            newStation2 = Station(journey = last_journey, stationName = whereTo, distanceFromStart = FullDistance, stationArrivalTime = ArrivalTime, stationDepartureTime = ArrivalTime, address = finalAdr_query)
             newStation2.save()
 
             return redirect('/')
@@ -91,17 +93,29 @@ def add_journey(request):
 
 
 def update_journey(request, Journey_id):  
-    journey = Journey.objects.get(id = Journey_id)
+    journey = Journey.objects.get(id = Journey_id) 
     form = JourneyForm(instance=journey)
 
     if request.method == 'POST':
         form = JourneyForm(request.POST, instance = journey)
         if form.is_valid():
             form.save()
-            return redirect('journey/')
 
-    context = {'form' : form}
-    return render(request, 'admin-panel/add-journey.html', context)
+            last_journey_qs = Journey.objects.filter(id__exact = journey.id)
+            journeyNewValues = last_journey_qs.values()
+            for j in journeyNewValues:
+                fromWhere = j['fromWhere'] 
+                whereTo = j['whereTo']
+                DepartureTime = j['DepartureTime']
+                ArrivalTime = j['ArrivalTime']
+                FullDistance = j['FullDistance']
+            station0 = Station.objects.filter(journey = journey).earliest('id')
+            Station.objects.filter(journey = journey,id = station0.id).update( stationName = fromWhere, distanceFromStart = 0, stationArrivalTime = DepartureTime, stationDepartureTime = DepartureTime)
+            station1 = Station.objects.filter(journey = journey,id = station0.id+1).update( stationName = whereTo, distanceFromStart = FullDistance, stationArrivalTime = ArrivalTime, stationDepartureTime = ArrivalTime)
+            return redirect('journeys')
+
+    context = {'form' : form, }
+    return render(request, 'admin-panel/update-journey.html', context)
 
 
 def delete_journey(request, Journey_id):
@@ -127,7 +141,7 @@ def journeys(request):
     return render(request, 'admin-panel/journeys.html', {'journey' : journey})
 
 
-def journey_stations (request, Journey_id):
+def journey_stations(request, Journey_id):
     StationFormSet = inlineformset_factory(Journey, Station, fields=('stationName', 'distanceFromStart', 'stationArrivalTime', 'stationDepartureTime'), extra=15)
     journey = Journey.objects.get(id = Journey_id)
     formset = StationFormSet(instance = journey)
@@ -215,7 +229,6 @@ def schedule(request):
 
 def update(request):
     date_now = date.today()
-
     last_day = date_now + timedelta(days=7)
 
     delta = timedelta(days=1)
@@ -225,54 +238,61 @@ def update(request):
     all_journeys = Journey.objects.all()
 
     for journey in all_journeys:
-        while date_now <= last_day:        
+        while date_now <= last_day:
             dates = Schedule.objects.filter(journey_id = journey, DepartureDate = date_now)
             if not dates.exists():
                 weekday = date_now.weekday() 
                 if journey.DaysOfDeparture.lower() == 'по буднях' and weekday != 5 and weekday != 6:
-                    newObj = Schedule(journey_id = journey, DepartureDate = date_now)
+                    bus = journey.bus
+                    newObj = Schedule(journey_id = journey, DepartureDate = date_now, freeSeats = bus.countOfSeats)
                     newObj.save()
 
                 if journey.DaysOfDeparture.lower() == 'крім неділі' and weekday != 6:
-                    newObj = Schedule(journey_id = journey, DepartureDate = date_now)
+                    bus = journey.bus
+                    newObj = Schedule(journey_id = journey, DepartureDate = date_now, freeSeats = bus.countOfSeats)
                     newObj.save()
             date_now += delta
         date_now = date.today()
 
 def search(request):
-
     fromWhere_query = request.GET.get('fromWhere','')
     whereTo_query = request.GET.get('whereTo','')
     date_query = request.GET.get('date','')
 
     journeys = []
+    stations_fromWhere1 = []
+    stations_whereTo1 = []
 
     journeys1 = Journey.objects.all()
 
     for j in journeys1:
-        stations_fromWhere = Station.objects.filter(journey = j, stationName__iexact = fromWhere_query).values()
-        #distance1_value = stations_fromWhere.values("distanceFromStart")
+        stations_fromWhere = Station.objects.filter(journey = j, stationName__iexact = fromWhere_query)
+        distance1_value = stations_fromWhere.values()
 
-        stations_whereTo = Station.objects.filter(journey = j, stationName__iexact = whereTo_query).values()
-        #distance2_value = stations_whereTo.values("distanceFromStart")
+        stations_whereTo = Station.objects.filter(journey = j, stationName__iexact = whereTo_query)
+        distance2_value = stations_whereTo.values()
         
         schedule_date = Schedule.objects.filter(journey_id = j, DepartureDate = date_query)
 
-        if stations_fromWhere.exists() and stations_whereTo.exists():
-            for station1 in stations_fromWhere:
+        if distance1_value.exists() and distance2_value.exists():
+            for station1 in distance1_value:
                 distance1 = station1['distanceFromStart'] 
 
-            for station2 in stations_whereTo:
+            for station2 in distance2_value:
                 distance2 = station2['distanceFromStart']
 
             if distance1 < distance2 and schedule_date.exists():
-                journeys += Journey.objects.annotate(price = F('FullDistance') * 1).filter(id__contains = j.id)
+                journeys += Journey.objects.annotate(price = F('FullDistance') * 0 +(distance2-distance1)).filter(id__contains = j.id)
+                stations_fromWhere1 += stations_fromWhere
+                stations_whereTo1 += stations_whereTo
 
-    context = {'journeys' : journeys }
+    context = {'journeys' : journeys, 'st_fromWhere' : stations_fromWhere1, 'st_whereTo' : stations_whereTo1, 'fromWhere' :  fromWhere_query,'whereTo' :  whereTo_query}
     return render(request, 'app/search.html', context)
 
-def buy(request):
-    return render(request, 'app/buy.html')
+def buy(request, id,price):
+    journey = Journey.objects.filter(id__exact = id)
+    context = {'id':id, 'price':price, 'journey':journey}
+    return render(request, 'app/buy.html',context)
 
 def success(request):
     return render(request, 'app/success.html')

@@ -4,10 +4,11 @@ from datetime import datetime
 class Bus(models.Model):
     company = models.CharField(max_length=60,null=True,blank=True)
     model = models.CharField(max_length=50,blank=False,default = '')
-    yearOfIssue = models.PositiveIntegerField(max_length=10,blank=False,default = '')
+    yearOfIssue = models.PositiveIntegerField(blank=False,default = '')
     number = models.CharField(max_length=10,blank=False,default = '')
     VinNumber = models.CharField(max_length=10,blank=False,null=False,default = '')
     fuelConsumption = models.FloatField(max_length=10,blank=False,null=True,default = '')
+    countOfSeats = models.PositiveIntegerField(blank=False,default = '')
 
     def __str__(self):
         return self.number
@@ -37,17 +38,16 @@ class Station(models.Model):
     distanceFromStart = models.FloatField(max_length=10,blank=False,default = '')
     stationArrivalTime = models.TimeField(auto_now=False,blank=False,default = '')
     stationDepartureTime = models.TimeField(auto_now=False,blank=False,default = '')
-
+    address = models.TextField(blank=False,default = '')
+    
     def __str__(self):
-        return self.stationName
+        return str(self.id)
 
 class Schedule(models.Model):
-    class Meta:
-        ordering = ['DepartureDate']
-
     journey_id = models.ForeignKey(Journey, related_name='journeys', on_delete=models.CASCADE)
     DepartureDate = models.DateField()
     status = models.CharField(max_length=20, blank=False, default = '')
+    freeSeats  = models.PositiveIntegerField(blank=False,default = '')
 
     def __str__(self):
         return str(self.journey_id) + ' ' + str(self.DepartureDate)

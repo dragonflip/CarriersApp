@@ -4,7 +4,7 @@
   <div class="container">
     <div class="row">
       <h3 style="font-weight: 300; margin-top: 130px;">Квитки на автобус</h3>
-      <h1 style="font-weight: 400;">Коломия - Варшава</h1>
+      <h1 style="font-weight: 400;">{{fromWhere}} - {{whereTo}}</h1>
       <form action="{%url 'search'%}" method="GET" class="row" style="margin-top: 50px;">
         <div class="col-auto">
           <input class="form-control form-control-lg" placeholder="Звідки" name="fromWhere" required autofocus>
@@ -13,7 +13,7 @@
           <input class="form-control form-control-lg" placeholder="Куди" name="whereTo" required>
         </div>
         <div class="col-auto">
-          <input class="form-control form-control-lg" type="date" placeholder="Дата поїздки" name="date" required>
+          <input class="form-control form-control-lg" placeholder="Дата поїздки" type="date" name="date" required>
         </div>
         <div class="col-auto">
           <button class="btn btn-danger btn-lg btn-block" placeholder="Кількість пасажирів">Знайти квиток</button>
@@ -38,14 +38,22 @@
         <div class="row align-items-center">
           <div class="col-md-4">
             <div class="from">
-              <h4 class="name">{{l.fromWhere}}</h4>
-              <h5 class="date">{{l.DepartureTime}}</h5>
+                {% for stFR in st_fromWhere %}
+                    {% if stFR.journey == l %}
+                         <h4 class="name">{{stFR.stationName}}</h4>
+                         <h5 class="date">{{stFR.stationDepartureTime}}</h5>
+                    {%endif%}
+                {%endfor%}
             </div>
           </div>
           <div class="col-md-4">
             <div class="to">
-              <h4 class="name">{{ l.whereTo }}</h4>
-              <h5 class="date">{{ l.ArrivalTime }}</h5>
+                {% for stWT in st_whereTo %}
+                    {% if stWT.journey == l %}
+                        <h4 class="name">{{ stWT.stationName}}</h4>
+                        <h5 class="date">{{ stWT.stationArrivalTime }}</h5>
+                    {%endif%}
+                {%endfor%}
             </div>
           </div>
           <div class="col-md-4">
@@ -54,7 +62,7 @@
                 <h2 class="price">{{l.price}}грн</h2>
               </div>
               <div class="col-md-6">
-                <a href="/buy" class="btn btn-danger btn-lg btn-block">Купити</a>
+                <a href="{% url 'buy' l.id l.price %}" class="btn btn-danger btn-lg btn-block">Купити</a>
               </div>
             </div>
           </div>
