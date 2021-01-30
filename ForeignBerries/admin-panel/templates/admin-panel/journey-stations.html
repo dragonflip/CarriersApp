@@ -1,21 +1,38 @@
 ﻿{% include 'app/layouts/header.html' %}
 
-<div class="row">
-	<div class="col-md-6">
-		<div class="card card-body">
-
-			<form action="" method="POST">
+<div class="container" style="margin: 100px auto;">
+	<div class="card card-body">
+		<form method="POST">
+			<table class="table align-middle text-center">
 				{% csrf_token %}
 				{{ formset.management_form }}
-				{% for form in formset %}
-					{{form}}
-					<hr>
-				{% endfor %}
-				
-				<input type="submit" name="Submit">
-			</form>
 
-		</div>
+				{% for form in formset %}
+					{% if forloop.first %}
+						<tr>
+							{% for field in form.visible_fields %}
+								<th>{{ field.label|capfirst }}</th>
+							{% endfor %}
+						</tr>
+					{% endif %}
+
+					<tr class="formset_row">
+						{% for field in form.visible_fields %}
+							<td>
+								{% if forloop.first %}
+									{% for hidden in form.hidden_fields %}
+										{{ hidden }}
+									{% endfor %}
+								{% endif %}
+								{{ field.errors.as_ul }}
+								{{ field }}
+							</td>
+						{% endfor %}
+					</tr>
+				{% endfor %}
+			</table>
+			<button class="btn btn-outline-dark w-100">Зберегти</button>
+		</form>
 	</div>
 </div>
 

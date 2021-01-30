@@ -2,7 +2,7 @@
 
 <div class="container" style="margin: 100px auto;">
 	<h2>Автобуси</h2>
-	<div class="d-flex justify-content-center mb-2">
+	<div class="d-flex justify-content-end mb-2">
 		<form method="get" class="row" action="{% url 'busses' %}" style="width: 400px;">
 			<div class="d-flex">
 				<input class="form-control" placeholder="Пошук..." name="search" autofocus>
@@ -11,6 +11,7 @@
 				</button>
 			</div>
 		</form>
+		<a class="btn btn-outline-primary" href="{% url 'add_bus' %}">Додати</a>
 	</div>
 	<div class="card card-body">
 		<table class="table align-middle">
@@ -44,13 +45,7 @@
 			</tr>
 			{% endfor %}
 		</table>
-		
 	</div>
-
-	<div class="mt-2 mx-5" align ="right">
-		<a class="btn btn-outline-dark" href="{% url 'add_bus' %}" style="width: 10%; ">Додати</a>
-	</div>
-
 </div>
 
 {% include 'app/layouts/footer.html' %}
