@@ -142,16 +142,14 @@ def journeys(request):
 
 
 def journey_stations(request, Journey_id):
-    StationFormSet = inlineformset_factory(Journey, Station, fields=('stationName', 'distanceFromStart', 'stationArrivalTime', 'stationDepartureTime'), extra=15)
+    StationFormSet = inlineformset_factory(Journey, Station, form = StationForm, extra = 1)
     journey = Journey.objects.get(id = Journey_id)
     formset = StationFormSet(instance = journey)
-    #form = StationForm(initial={'journey' : journey})
     if request.method == 'POST':
-        #form = StationForm(request.POST)
         formset = StationFormSet(request.POST, instance = journey)
         if formset.is_valid():
             formset.save()
-            return redirect('/journey/')
+            return redirect('/journey_stations/' + Journey_id + '/')
     context = {'formset' : formset}
     return render(request, 'admin-panel/journey-stations.html', context)
 
@@ -218,6 +216,9 @@ def statistics(request):
 
     if total_sold != 0:
         total_sold = total_sold['total_sold']
+
+        if total_sold == None:
+            total_sold = 0
 
     context = {'total_sold' : total_sold,  'jrns' : jrns, 'dat' : dat, 'datan' : datan, 'js' : js, 'total_tickets' : total_tickets, 'total_jrns' : total_jrns, 'total_tickets_N' : total_tickets_N, 'total_tickets_K' : total_tickets_K}
     return render(request, 'admin-panel/statistics.html', context)
