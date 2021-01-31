@@ -58,9 +58,10 @@ class Schedule(models.Model):
 
 class Ticket(models.Model):
     Types = (
-        ('Дорослий', 'Normal'),
-        ('Дитячий', 'Kids'),
+        ('Дорослий', 'Дорослий'),
+        ('Дитячий', 'Дитячий'),
     )
+    user_id = models.IntegerField(blank=False,null=False,default = '')
     buyerName = models.CharField(max_length=50,blank=False,null=False,default = '')
     buyerSurname = models.CharField(max_length=50,blank=False,null=False,default = '')
     journey = models.ForeignKey(Journey,on_delete=models.CASCADE,blank=False,default = '')
@@ -77,8 +78,12 @@ class Ticket(models.Model):
         return str(self.id)
 
     def save(self, *args, **kwargs):
-        last_ticket = Ticket.objects.all().latest('id')
-        new_id = last_ticket.id + 1
+        tickets = Ticket.objects.all()
+        if tickets.exists():
+            last_ticket = Ticket.objects.all().latest('id')
+            new_id = last_ticket.id + 1
+        else:
+           new_id = 1
         qrcode_img = qrcode.make(new_id)
         canvas = Image.new('RGB', (290, 290), 'white')
         draw = ImageDraw.Draw(canvas)

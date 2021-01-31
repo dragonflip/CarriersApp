@@ -42,7 +42,7 @@
 				{% elif user.is_authenticated %}
 					<ul class="navbar-nav flex-row">
 						<li class="nav-item p-2 px-4">
-							<a href="#" class="nav-link">Мої квитки</a>
+							<a href="{% url 'my_tickets' %}" class="nav-link">Мої квитки</a>
 						</li>
 					</ul>
 					<span class="badge bg-danger p-3">{{request.user}}</span>

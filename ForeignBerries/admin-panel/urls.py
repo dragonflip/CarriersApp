@@ -1,6 +1,5 @@
 from django.urls import path
 from . import views
-
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -27,4 +26,6 @@ urlpatterns = [
     path('search', views.search, name='search'),
     path('buy/<str:id>&<str:price>&<str:fromWhere>&<str:whereTo>&<str:date_journey>', views.buy, name='buy'),
     path('success/<str:id>&<str:price>&<str:fromWhere>&<str:whereTo>&<str:date_journey>', views.success, name='success'),
+
+    path('my_tickets', views.my_tickets, name='my_tickets'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -326,9 +326,13 @@ def success(request, id, price, fromWhere, whereTo, date_journey):
     if(type == 'Дитячий'):
         price = int(float(price) * 0.75)
     else:
-        type = 'Normal'
+        type = 'Дорослий'
 
-    newObj = Ticket(buyerName = buyerName_query, buyerSurname = buyerSurname_query, journey = journey, price = price, date = datetime.now(), type = type ,email = email_query, phone = phone_query, fromWhere = fromWhere, whereTo = whereTo)
+    id = 0
+    if request.user.is_authenticated:
+        id = request.user.id
+
+    newObj = Ticket(user_id = id, buyerName = buyerName_query, buyerSurname = buyerSurname_query, journey = journey, price = price, date = datetime.now(), type = type ,email = email_query, phone = phone_query, fromWhere = fromWhere, whereTo = whereTo)
     newObj.save()
 
     schedule_obj = Schedule.objects.get(journey_id = journey, DepartureDate = date_journey)
@@ -337,3 +341,8 @@ def success(request, id, price, fromWhere, whereTo, date_journey):
 
     context = {'ticket': newObj }
     return render(request, 'app/success.html', context)
+
+def my_tickets(request):
+    tickets_qs = Ticket.objects.filter(user_id = request.user.id)
+    context = { 'tickets' : tickets_qs }
+    return render(request, 'admin-panel/my-tickets.html', context)

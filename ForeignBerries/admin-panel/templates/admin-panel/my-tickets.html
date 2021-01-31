@@ -1,0 +1,48 @@
+﻿{% include 'app/layouts/header.html' %}
+
+
+<div class="container" style="max-width: 960px; padding-top: 20px; margin-top: 81px">
+  <div class="row">
+    <h3>Ваші квитки</h3>
+
+    {% if tickets %}      
+    <div class="tickets">
+      {% for ticket in tickets %}
+      <div class="ticket">
+        <div class="row align-items-center">
+
+          <div class="col-md-5">
+              <h6 class="name"> Ім'я та прізвище: {{ ticket.buyerName }} {{ ticket.buyerSurname }}</h6>
+              <h6 class="name"> Номер телефону: {{ ticket.phone }}</h6>
+              <h6 class="name"> Електронна пошта: {{ ticket.email }}</h6>
+              <h6 class="name"> Тип квитка: {{ ticket.type }}</h6>
+          </div>
+
+          <div class="col-md-2">
+            <div class="from">
+                <h5 class="name">{{ ticket.fromWhere }}</h5>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <div class="to">
+               <h5 class="name">{{ ticket.whereTo }}</h5>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+              <h5 class="price">Ціна:</h5>
+              <h6 class="price">{{ ticket.price }} грн</h6>
+          </div>
+
+        </div>
+      </div>
+        {% endfor %}
+    </div>
+      {% else %}
+       <p align="center" style="margin-top: 5px">У вас ще немає квитків.</p>
+      {% endif %}
+  </div>
+</div>
+
+{% include 'app/layouts/footer.html' %}
