@@ -34,6 +34,8 @@
     <div class="tickets">
     {%if journeys%}
       {%for l in journeys%}
+      {% for d in dates %}
+        {% if d.journey == l%}
       <div class="ticket">
         <div class="row align-items-center">
           <div class="col-md-4">
@@ -41,9 +43,9 @@
                 {% for stFR in st_fromWhere %}
                     {% if stFR.journey == l %}
                          <h4 class="name">{{stFR.stationName}}</h4>
-                         <h5 class="date">{{stFR.stationDepartureTime}}</h5>
+                        <h5 class="date">{{ d.departure }}</h5>
                     {%endif%}
-                {%endfor%}
+                {%endfor%}             
             </div>
           </div>
           <div class="col-md-4">
@@ -51,7 +53,7 @@
                 {% for stWT in st_whereTo %}
                     {% if stWT.journey == l %}
                         <h4 class="name">{{ stWT.stationName}}</h4>
-                        <h5 class="date">{{ stWT.stationArrivalTime }}</h5>
+                        <h5 class="date">{{ d.arrival }}</h5>
                     {%endif%}
                 {%endfor%}
             </div>
@@ -73,10 +75,12 @@
           </div>
         </div>
       </div>
+       {% endif %}
       {%endfor%}
-    {%else%}
-      <p align="center" style="margin-top: 5px ">За заданими параметрами маршрутів не знайдено.</p>
-    {%endif%}
+      {% endfor %}
+      {%else%}
+        <p align="center" style="margin-top: 5px ">За заданими параметрами маршрутів не знайдено.</p>
+      {%endif%}
     </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import datetime
+from datetime import datetime, timedelta
 import qrcode 
 from io import BytesIO
 from django.core.files import File
@@ -28,7 +28,7 @@ class Journey(models.Model):
     fromWhere = models.CharField(max_length=60,blank=False,default = '')
     whereTo = models.CharField(max_length=60,blank=False,default = '')
     DepartureTime = models.TimeField(auto_now=False,blank=False,default = '')
-    ArrivalTime = models.TimeField(auto_now=False,blank=False,default = '')
+    travelTime = models.DurationField(blank=False,default = timedelta(days=0, hours=0, minutes = 0))
     DaysOfDeparture = models.CharField(max_length=20, choices=Days, default = 'Крім неділі')
     FullDistance = models.FloatField(max_length=10,blank=False,default = '')
 
@@ -40,8 +40,13 @@ class Station(models.Model):
     journey = models.ForeignKey(Journey,on_delete=models.CASCADE,blank=False,default = '')
     stationName = models.CharField(max_length=60,blank=False,default = '')
     distanceFromStart = models.FloatField(max_length=10,blank=False,default = '')
-    stationArrivalTime = models.TimeField(auto_now=False,blank=False,default = '')
-    stationDepartureTime = models.TimeField(auto_now=False,blank=False,default = '')
+    #travelTimeFromStart = models.DurationField(blank=False,default = timedelta(days=0, hours=0, minutes = 0))
+    daysFromStart = models.IntegerField(blank=False)
+    hoursFromStart = models.IntegerField(blank=False)
+    minutesFromStart = models.IntegerField(blank=False)
+    stopTime = models.IntegerField(blank=False)
+    #stationArrivalTime = models.TimeField(auto_now=False,blank=False,default = '')
+    #stationDepartureTime = models.TimeField(auto_now=False,blank=False,default = '')
     address = models.TextField(blank=False,default = '')
     
     def __str__(self):
@@ -50,6 +55,9 @@ class Station(models.Model):
 class Schedule(models.Model):
     journey_id = models.ForeignKey(Journey, related_name='journeys', on_delete=models.CASCADE)
     DepartureDate = models.DateField()
+    ArrivalDate = models.DateField()
+    DepartureTime = models.TimeField()
+    ArrivalTime = models.TimeField()
     status = models.CharField(max_length=20, blank=False, default = '')
     freeSeats  = models.PositiveIntegerField(blank=False,default = '')
 

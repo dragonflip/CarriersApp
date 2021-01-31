@@ -35,22 +35,22 @@ class JourneyForm(ModelForm):
             field.widget.attrs['class'] = 'form-control mb-2'
             field.required = True
 
+        self.fields['travelTime'].required = False
+
 
 class StationForm(forms.ModelForm):
        class Meta:
            model = Station
            fields = '__all__'
-           labels = {
-             'stationName' : 'Назва станції',
-             'distanceFromStart' : 'Відстань від початку маршруту',
-             'stationArrivalTime' : 'Час прибуття',
-             'stationDepartureTime' : "Час від'їзду",
-             'address' : 'Адреса'
-             }
            widgets = {
-            'stationName' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder': 'Введіть назву станції'}),
-            'distanceFromStart' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder': 'Введіть відстань від почтаку'}),
-            'stationArrivalTime' : TimeInput(attrs={'class' : 'form-control'}),
-            'stationDepartureTime' : TimeInput(attrs={'class' : 'form-control'}),
-            'address' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Введіть адресу'})
+            'stationName' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder': 'Назва станції'}),
+            'distanceFromStart' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder': 'Відстань від початку'}),
+            'daysFromStart' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder': 'Днів', 'type' : 'number', 'min' : '0', 'style': 'width:80px'}),
+            'hoursFromStart' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder': 'Годин','type' : 'number', 'min' : '0', 'max' : '23', 'style': 'width:100px'}),
+            'minutesFromStart' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder': 'Хвилин', 'type' : 'number', 'min' : '0', 'max' : '59', 'style': 'width:100px'}),
+            'stopTime' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder': 'Хвилин', 'type' : 'number', 'min' : '0', 'style': 'width:100px; margin: auto'}),
+            #'stationArrivalTime' : TimeInput(attrs={'class' : 'form-control'}),
+            #'stationDepartureTime' : TimeInput(attrs={'class' : 'form-control'}),
+            'address' : forms.TextInput(attrs={'class' : 'form-control', 'placeholder' : 'Введіть адресу зупинки'})
+
             }

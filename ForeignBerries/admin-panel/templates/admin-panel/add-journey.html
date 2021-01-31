@@ -26,8 +26,15 @@
             <h6> Час відправлення: </h6>
             {{ form.DepartureTime }}
 
-            <h6> Час прибуття: </h6>
-            {{ form.ArrivalTime }}
+            <h6> Час у дорозі: </h6>
+
+            <div class="row mb-2" style="margin: 0 auto;">
+                <input class="form-control" style="width: 32%" placeholder="Днів" name='d' type='number' min='0' >
+
+                <input class="form-control ms-2" style="width: 32%" placeholder="Годин" name='h' type='number' min='0' max='23'>
+
+                <input class="form-control ms-2" style="width: 32%" placeholder="Хвилин" name='m' type='number' min='0' max='59'>
+            </div>
 
             <h6> Дні відправлення: </h6>
             {{ form.DaysOfDeparture }}

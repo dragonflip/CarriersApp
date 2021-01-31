@@ -1,7 +1,7 @@
 ﻿{% include 'app/layouts/header.html' %}
 
 <div class="container" style="margin: 100px auto;">
-	<div class="card card-body">
+	<div class="card card-body" >
 		<form method="POST">
 			<table class="table align-middle text-center">
 				{% csrf_token %}
@@ -10,14 +10,17 @@
 				{% for form in formset %}
 					{% if forloop.first %}
 						<tr>
-							{% for field in form.visible_fields %}
-								<th>{{ field.label|capfirst }}</th>
-							{% endfor %}
+								<th>Назва станції</th>
+								<th>Відстань від поч. маршруту</th>
+								<th colspan="3">Час в дорозі від поч. маршруту</th>
+								<th>Тривалість зупинки</th>
+								<th>Адреса зупинки</th>
+								<th>Видалити</th>
 						</tr>
 					{% endif %}
 
 					<tr class="formset_row">
-						{% for field in form.visible_fields %}
+						{% for field in form.visible_fields %}						
 							<td>
 								{% if forloop.first %}
 									{% for hidden in form.hidden_fields %}

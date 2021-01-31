@@ -8,7 +8,8 @@
 				<th>Назва маршруту</th>
 				<th>Початкова зупинка</th>
 				<th>Кінцева зупинка</th>
-				<th>Дата відправлення</th>
+				<th>Дата та час відправлення</th>
+                <th>Дата та час прибуття</th>
 			</tr>
 
              {% for journey in journeys %}
@@ -21,7 +22,9 @@
                    <td> {{ journey.whereTo }} </td>
             
             
-                   <td>{{ sch.DepartureDate }}</td>
+                   <td>{{ sch.DepartureDate }} {{ sch.DepartureTime }}</td>
+
+                   <td>{{ sch.ArrivalDate }} {{ sch.ArrivalTime }}</td>
              </tr>
             {% endfor %}
             {% endfor %}
