@@ -4,39 +4,37 @@
 	<div class="container">
 		<div class="row">
 			<h3 style="font-weight: 300; margin-top: 130px;">Оформлення квитка</h3>
-			{% for el in journey%}
-			<h1 style="font-weight: 400;">{{el.fromWhere}} - {{el.whereTo}}</h1>
-			{%endfor%}
+			<h1 style="font-weight: 400;">{{ journey.fromWhere}} - {{ journey.whereTo}}</h1>
 		</div>
 	</div>
 </header>
 <div class="container" style="max-width: 960px; padding-top: 20px;">
 	<div class="row">
-		<div class="col-md-8">
-			<form action="/success" method="GET" style="background: #fff; width: fit-content; padding: 40px; border-radius: 10px; box-shadow: 0 0 10px #cdcdcd;">
+		<div class="col-md-8">				
+			<form action="{% url 'success' journey.id full_price FromWhere.stationName WhereTo.stationName date_journey %}" method="get" style="background: #fff; width: fit-content; padding: 40px; border-radius: 10px; box-shadow: 0 0 10px #cdcdcd;">
 				<h3 style="font-weight: 400;">Оформлення квитка</h3><hr>
 				<div class="row">
 					<h5 style="font-weight: 300;">Інформація про покупця</h5>
 					<div class="col-md-6">
-						<input class="form-control form-control-lg" placeholder="Ім'я" required autofocus>
+						<input class="form-control form-control-lg" placeholder="Ім'я" name="buyerName" required autofocus>
 					</div>
 					<div class="col-md-6">
-						<input class="form-control form-control-lg" placeholder="Прізвище" required>
+						<input class="form-control form-control-lg" placeholder="Прізвище" name="buyerSurname" required>
 					</div>
 				</div>
 				<div class="row mt-4">
 					<h5 style="font-weight: 300;">Дані для зв'язку</h5>
 					<div class="col-md-6">
-						<input class="form-control form-control-lg" placeholder="E-mail" required>
+						<input class="form-control form-control-lg" placeholder="E-mail" name="email" required>
 					</div>
 					<div class="col-md-6">
-						<input class="form-control form-control-lg" placeholder="Телефон" required>
+						<input class="form-control form-control-lg" placeholder="Телефон" name="phone" required>
 					</div>
 				</div>
 				<div class="row mt-4">
 					<h5 style="font-weight: 300;">Тип квитка</h5>
 					<div class="col-md-6">
-						<select class="form-select form-select-lg">
+						<select name="type" class="form-select form-select-lg">
 							<option>Дорослий</option>
 							<option>Дитячий</option>
 						</select>
@@ -57,7 +55,7 @@
 						<h4 style="font-weight: 300;">До сплати</h4>
 					</div>
 					<div class="col-md-6">
-						<h4 style="font-weight: 300;" class="text-end">{{price}} грн</h4>
+						<h4 style="font-weight: 300;" class="text-end">{{ full_price }} {{ kids_price }}грн</h4>
 					</div>
 				</div>
 				<hr class="mt-3">
@@ -69,29 +67,29 @@
 			</form>
 		</div>
 		<div class="col-md-4 about-direction" style="background: #fff; padding: 30px; height: fit-content; border-radius: 10px; box-shadow: 0 0 10px #cdcdcd;">
-			<h3 style="font-weight: 400;">Про рейс</h3><hr>
+			<h3 style="font-weight: 400;">Про поїздку</h3><hr>
 			<div class="from">
 				<div class="row">
 					<div class="col-md-4">
-						<div class="time">19:15</div>
-						<div class="date">22.01.2021</div>
+						<div class="time">{{FromWhere.stationDepartureTime}}</div>
+						<div class="date">{{schedule.DepartureDate}}</div>
 					</div>
 					<div class="col-md-8">
-						<div class="name">Коломия</div>
-						<div class="stop">Автовокзал Коломия, вулиця Бориса Антоненка-Давидовича; будинок 15</div>
+						<div class="name">{{FromWhere.stationName}}</div>
+						<div class="stop">{{FromWhere.address}}</div>
 					</div>
 				</div>
 			</div>
-			<img src="https://static.thenounproject.com/png/156637-200.png" width="85" style="margin-top: -50px; margin-left: -10px;">
-			<div class="from mt-4">
+			<img src="https://static.thenounproject.com/png/156637-200.png" width="85" style="margin-top: -10px; margin-left: -10px;">
+			<div class="from">
 				<div class="row">
 					<div class="col-md-4">
-						<div class="time">22:40</div>
+						<div class="time">{{WhereTo.stationArrivalTime}}</div>
 						<div class="date">23.01.2021</div>
 					</div>
 					<div class="col-md-8">
-						<div class="name">Варшава</div>
-						<div class="stop">Автовокзал Варашава, вулиця Бориса Антоненка-Давидовича; будинок 15</div>
+						<div class="name">{{WhereTo.stationName}}</div>
+						<div class="stop">{{WhereTo.address}}</div>
 					</div>
 				</div>
 			</div>

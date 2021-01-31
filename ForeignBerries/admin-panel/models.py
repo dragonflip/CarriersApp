@@ -1,5 +1,9 @@
 from django.db import models
 from datetime import datetime
+import qrcode 
+from io import BytesIO
+from django.core.files import File
+from PIL import Image, ImageDraw
 
 class Bus(models.Model):
     company = models.CharField(max_length=60,null=True,blank=True)
@@ -56,14 +60,32 @@ class Ticket(models.Model):
     Types = (
         ('Дорослий', 'Normal'),
         ('Дитячий', 'Kids'),
-        ('Пенсійний', 'Retiree'),
     )
     buyerName = models.CharField(max_length=50,blank=False,null=False,default = '')
     buyerSurname = models.CharField(max_length=50,blank=False,null=False,default = '')
     journey = models.ForeignKey(Journey,on_delete=models.CASCADE,blank=False,default = '')
     price = models.FloatField(max_length=10,blank=False,default = '')
-    date = models.DateTimeField(auto_now=False, auto_now_add=False,blank=False,default = datetime.now())
+    date = models.DateTimeField(auto_now=False, auto_now_add=False,blank=False, default = datetime.now())
     type = models.CharField(max_length=10, choices=Types,default = 'Normal')
+    email = models.CharField(max_length=75,blank=False,null=False,default = '')
+    phone = models.CharField(max_length=12,blank=False,null=False,default = '')
+    fromWhere  = models.CharField(max_length=60,blank=False,default = '')
+    whereTo = models.CharField(max_length=60,blank=False,default = '')
+    qr_code = models.ImageField(upload_to='qr_codes/', blank=True)
 
-    def __int__(self):
-        return self.id
+    def __str__(self):
+        return str(self.id)
+
+    def save(self, *args, **kwargs):
+        last_ticket = Ticket.objects.all().latest('id')
+        new_id = last_ticket.id + 1
+        qrcode_img = qrcode.make(new_id)
+        canvas = Image.new('RGB', (290, 290), 'white')
+        draw = ImageDraw.Draw(canvas)
+        canvas.paste(qrcode_img)
+        fname = f'qr_code-{new_id}'+'.png'
+        buffer = BytesIO()
+        canvas.save(buffer, 'PNG')
+        self.qr_code.save(fname, File(buffer), save=False)
+        canvas.close()
+        super().save(*args, **kwargs)

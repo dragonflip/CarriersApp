@@ -8,6 +8,7 @@ from app.forms import CustomResetPassword, CustomSetPassword
 from django.urls import reverse_lazy
 
 
+
 urlpatterns = [
     path('', views.index, name='main'),
     path('login', views.login, name='login'),

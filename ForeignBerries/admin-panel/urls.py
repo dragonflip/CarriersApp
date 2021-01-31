@@ -1,6 +1,9 @@
 from django.urls import path
 from . import views
 
+from django.conf.urls.static import static
+from django.conf import settings
+
 urlpatterns = [
     path('', views.index, name='main'),
     path('busses/', views.busses, name = 'busses'),
@@ -22,6 +25,6 @@ urlpatterns = [
     path('schedule/', views.schedule, name = 'schedule'),
 
     path('search', views.search, name='search'),
-    path('buy/<str:id>&<str:price>', views.buy, name='buy'),
-    path('success', views.success, name='success'),
-]
+    path('buy/<str:id>&<str:price>&<str:fromWhere>&<str:whereTo>&<str:date_journey>', views.buy, name='buy'),
+    path('success/<str:id>&<str:price>&<str:fromWhere>&<str:whereTo>&<str:date_journey>', views.success, name='success'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

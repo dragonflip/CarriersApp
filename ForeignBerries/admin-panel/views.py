@@ -263,6 +263,7 @@ def search(request):
     journeys = []
     stations_fromWhere1 = []
     stations_whereTo1 = []
+    schedule = []
 
     journeys1 = Journey.objects.all()
 
@@ -286,15 +287,53 @@ def search(request):
                 journeys += Journey.objects.annotate(price = F('FullDistance') * 0 +(distance2-distance1)).filter(id__contains = j.id)
                 stations_fromWhere1 += stations_fromWhere
                 stations_whereTo1 += stations_whereTo
+                schedule += schedule_date
 
-    context = {'journeys' : journeys, 'st_fromWhere' : stations_fromWhere1, 'st_whereTo' : stations_whereTo1, 'fromWhere' :  fromWhere_query,'whereTo' :  whereTo_query}
+    context = {'journeys' : journeys, 
+               'st_fromWhere' : stations_fromWhere1, 
+               'st_whereTo' : stations_whereTo1, 
+               'fromWhere' :  fromWhere_query,
+               'whereTo' :  whereTo_query, 
+               'schedule' : schedule,
+               'date_journey' : date_query }
     return render(request, 'app/search.html', context)
 
-def buy(request, id,price):
-    journey = Journey.objects.filter(id__exact = id)
-    context = {'id':id, 'price':price, 'journey':journey}
+def buy(request, id,price,fromWhere,whereTo, date_journey):
+    journey = Journey.objects.filter(id__exact = id)[0]
+    FrowWhere = Station.objects.filter(journey = journey,stationName = fromWhere)[0]
+    WhereTo = Station.objects.filter(journey = journey,stationName = whereTo)[0]
+    schedule = Schedule.objects.filter(journey_id = journey).earliest('id')
+
+
+    context = {'id':id, 
+               'full_price' : int(float(price)), 
+               'kids_price' : int(float(price) * 0.75),
+               'journey' : journey,
+               'FromWhere': FrowWhere,
+               'WhereTo':WhereTo,
+               'schedule':schedule,
+               'date_journey' : date_journey }
     return render(request, 'app/buy.html',context)
 
-def success(request):
-    return render(request, 'app/success.html')
+def success(request, id, price, fromWhere, whereTo, date_journey):
+    journey = Journey.objects.filter(id__exact = id)[0]
+    buyerName_query = request.GET.get('buyerName','')
+    buyerSurname_query = request.GET.get('buyerSurname','')
+    email_query = request.GET.get('email','')
+    phone_query = request.GET.get('phone','')
+    type = request.GET.get('type','')
 
+    if(type == 'Дитячий'):
+        price = int(float(price) * 0.75)
+    else:
+        type = 'Normal'
+
+    newObj = Ticket(buyerName = buyerName_query, buyerSurname = buyerSurname_query, journey = journey, price = price, date = datetime.now(), type = type ,email = email_query, phone = phone_query, fromWhere = fromWhere, whereTo = whereTo)
+    newObj.save()
+
+    schedule_obj = Schedule.objects.get(journey_id = journey, DepartureDate = date_journey)
+    Schedule.objects.filter(journey_id = journey, DepartureDate = date_journey).update(freeSeats = schedule_obj.freeSeats-1)
+
+
+    context = {'ticket': newObj }
+    return render(request, 'app/success.html', context)

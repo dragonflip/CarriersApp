@@ -59,10 +59,15 @@
           <div class="col-md-4">
             <div class="row">
               <div class="col-md-6">
-                <h2 class="price">{{l.price}} грн</h2>
+                  {% for sch in schedule %}
+                    {% if sch.journey_id == l %}
+                         <h5 class="seats"> Вільно: {{ sch.freeSeats }}</h5>
+                    {%endif%}
+                {%endfor%}
+                <h2 class="price">{{l.price}}грн</h2>
               </div>
               <div class="col-md-6">
-                <a href="{% url 'buy' l.id l.price %}" class="btn btn-danger btn-lg btn-block">Купити</a>
+                <a href="{% url 'buy' l.id l.price fromWhere whereTo date_journey %}" class="btn btn-danger btn-lg btn-block">Купити</a>
               </div>
             </div>
           </div>
