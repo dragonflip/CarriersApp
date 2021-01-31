@@ -1,41 +1,37 @@
 ﻿{% include 'app/layouts/header.html' %}
 
-<div class="row" style="margin: 100px auto; width:80%">
-    <div class="col-md-6">
-        <div class="card card-body">
+<div class="container" style="margin: 100px auto;">
+    <div class="card card-body" style="max-width: 500px; margin: 0 auto;">
+        <form method="post">
+            {% csrf_token %}
 
-            <form action="" method="post">
+            <h6> Автобус: </h6>
+            {{ form.bus }}
 
-                {% csrf_token %}
+            <h6> Номер маршруту: </h6>
+            {{ form.number }}
 
-                <h6> Автобус: </h6>
-                {{ form.bus }}
+            <h6> Звідки: </h6>
+            {{ form.fromWhere }}
 
-                <h6> Номер маршруту: </h6>
-                {{ form.number }}
+            <h6> Куди: </h6>
+            {{ form.whereTo }}
 
-                <h6> Звідки: </h6>
-                {{ form.fromWhere }}
+            <h6> Час відправлення: </h6>
+            {{ form.DepartureTime }}
 
-                <h6> Куди: </h6>
-                {{ form.whereTo }}
+            <h6> Час прибуття: </h6>
+            {{ form.ArrivalTime }}
 
-                <h6> Час відправлення: </h6>
-                {{ form.DepartureTime }}
+            <h6> Дні відправлення: </h6>
+            {{ form.DaysOfDeparture }}
 
-                <h6> Час прибуття: </h6>
-                {{ form.ArrivalTime }}
+            <h6> Повна відстань між початковою та кінцевою зупинками: </h6>
+            {{ form.FullDistance }}
 
-                <h6> Дні відправлення: </h6>
-                {{ form.DaysOfDeparture }}
+            <button class="btn btn-danger mt-2 w-100">Оновити</button>
 
-                <h6> Повна відстань між початковою та кінцевою зупинками: </h6>
-                {{ form.FullDistance }}
-
-                <input class="btn btn-info mt-2" type="submit" name="Sumbit">
-
-            </form>
-        </div>
+        </form>
     </div>
 </div>
 

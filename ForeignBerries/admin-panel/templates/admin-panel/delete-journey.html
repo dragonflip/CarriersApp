@@ -1,23 +1,14 @@
 ﻿{% include 'app/layouts/header.html' %}
 
-<div class="row" style="margin: 100px auto; width:80%">>
-    <div class="col-md-6">
-        <div class="card card-body">
+<div class="container" style="margin: 100px auto;">
+    <div class="card card-body" style="max-width: 500px; margin: 0 auto;">
+        <p>Ви справді хочете видалити рейс "{{ journey }}"?</p>
+        <form action="{% url 'delete_journey' journey.id %}" method="POST">
+            {% csrf_token %}
 
-            <p>Ви справді хочете видати рейс "{{ journey }}"?</p>
-
-
-            <form action="{% url 'delete_journey' journey.id %}" method="POST">
-                {% csrf_token %}
-
-                <a class="btn btn-warning" href="{% url 'journeys' %}">
-                    Назад
-                </a>
-
-                <button class="btn btn-danger" type="submit" name="Confirm">Так</button>
-
-            </form>
-        </div>
+            <button class="btn btn-danger">Так</button>
+            <a class="btn btn-primary" href="{% url 'journeys' %}">Назад</a>
+        </form>
     </div>
 </div>
 

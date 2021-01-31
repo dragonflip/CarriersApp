@@ -42,9 +42,9 @@ class StationForm(forms.ModelForm):
            fields = '__all__'
            labels = {
              'stationName' : 'Назва станції',
-             'distanceFromStart' : 'Відстань від почтку маршруту',
+             'distanceFromStart' : 'Відстань від початку маршруту',
              'stationArrivalTime' : 'Час прибуття',
-             'stationDepartureTime' : 'Час відїзду',
+             'stationDepartureTime' : "Час від'їзду",
              'address' : 'Адреса'
              }
            widgets = {
