@@ -64,10 +64,10 @@
                          <h5 class="seats"> Вільно: {{ sch.freeSeats }}</h5>
                     {%endif%}
                 {%endfor%}
-                <h2 class="price">{{l.price}}грн</h2>
+                <h2 class="price">{{l.price}} грн</h2>
               </div>
-              <div class="col-md-6">
-                <a href="{% url 'buy' l.id l.price fromWhere whereTo date_journey %}" class="btn btn-danger btn-lg btn-block">Купити</a>
+              <div class="col-md-6 d-flex align-items-center justify-content-center">
+                <a href="{% url 'buy' l.id l.price fromWhere whereTo date_journey %}" class="btn btn-danger btn-lg">Купити</a>
               </div>
             </div>
           </div>
