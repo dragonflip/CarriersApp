@@ -284,7 +284,17 @@ def update(request):
             date_now += delta
         date_now = date.today()
 
+
+def update_status(request):
+    date_now = date.today()
+    time_now = datetime.now().time() 
+
+    Schedule.objects.filter(freeSeats__lt = 1).update(status = 'Немає місць')
+
 def search(request):
+
+    update_status(request)
+
     fromWhere_query = request.GET.get('fromWhere','')
     whereTo_query = request.GET.get('whereTo','')
     date_query = request.GET.get('date','')
@@ -294,10 +304,12 @@ def search(request):
     stations_whereTo1 = []
     schedule = []
     dates = []
+    status = []
 
     journeys1 = Journey.objects.all()
 
     for j in journeys1:
+
         stations_fromWhere = Station.objects.filter(journey = j, stationName__iexact = fromWhere_query)
         distance1_value = stations_fromWhere.values()
 
@@ -331,6 +343,11 @@ def search(request):
                 departure = departure_datetime + travel_time1
                 arrival = departure_datetime + travel_time2
 
+                if departure < datetime.now():
+                    status.append({ 'journey' : j, 'status' : 'Відправлено' })
+                else:
+                    status.append({ 'journey' : j, 'status' : '' })
+
                 journeys += Journey.objects.annotate(price = F('FullDistance') * 0 +(distance2-distance1)).filter(id__contains = j.id)
                 stations_fromWhere1 += stations_fromWhere
                 stations_whereTo1 += stations_whereTo
@@ -344,7 +361,8 @@ def search(request):
                'whereTo' :  whereTo_query, 
                'schedule' : schedule,
                'date_journey' : date_query,
-               'dates' : dates }
+               'dates' : dates,
+               'status' : status }
     return render(request, 'app/search.html', context)
 
 def buy(request, id,price,fromWhere,whereTo, date_journey):

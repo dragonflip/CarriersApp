@@ -58,7 +58,7 @@ class Schedule(models.Model):
     ArrivalDate = models.DateField()
     DepartureTime = models.TimeField()
     ArrivalTime = models.TimeField()
-    status = models.CharField(max_length=20, blank=False, default = '')
+    status = models.CharField(max_length=20, blank=False, default = 'Доступний')
     freeSeats  = models.PositiveIntegerField(blank=False,default = '')
 
     def __str__(self):

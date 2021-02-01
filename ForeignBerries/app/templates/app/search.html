@@ -63,13 +63,31 @@
               <div class="col-md-6">
                   {% for sch in schedule %}
                     {% if sch.journey_id == l %}
-                         <h5 class="seats"> Вільно: {{ sch.freeSeats }}</h5>
-                    {%endif%}
-                {%endfor%}
-                <h2 class="price">{{l.price}} грн</h2>
+                        {% for st in status %}
+                            {% if st.journey == l %}
+                                {% if st.status == 'Відправлено' %}
+                                    <h5 class="seats text-danger"> {{ st.status }}</h5>
+                                {% elif sch.status == 'Немає місць' %}
+                                    <h5 class="seats text-danger"> {{ sch.status }}</h5>
+                                {% else %}
+                                    <h5 class="seats"> Доступно: {{ sch.freeSeats }} місць</h5>
+                                {% endif %}
+                            {% endif %}
+                         {% endfor %}
+                <h4 class="price">{{l.price}} грн</h4>
               </div>
               <div class="col-md-6 d-flex align-items-center justify-content-center">
-                <a href="{% url 'buy' l.id l.price fromWhere whereTo date_journey %}" class="btn btn-danger btn-lg">Купити</a>
+                  {% for st in status %}
+                    {% if st.journey == l %}
+                        {% if sch.status == 'Немає місць' or st.status == 'Відправлено' %}
+                            <button class="btn btn-danger btn-lg" disabled>Купити</button>
+                        {% else %}
+                            <a href="{% url 'buy' l.id l.price fromWhere whereTo date_journey %}" class="btn btn-danger btn-lg">Купити</a>
+                        {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                 {% endif %}
+                {% endfor %}
               </div>
             </div>
           </div>
