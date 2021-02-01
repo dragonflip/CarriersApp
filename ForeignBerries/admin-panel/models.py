@@ -40,13 +40,10 @@ class Station(models.Model):
     journey = models.ForeignKey(Journey,on_delete=models.CASCADE,blank=False,default = '')
     stationName = models.CharField(max_length=60,blank=False,default = '')
     distanceFromStart = models.FloatField(max_length=10,blank=False,default = '')
-    #travelTimeFromStart = models.DurationField(blank=False,default = timedelta(days=0, hours=0, minutes = 0))
     daysFromStart = models.IntegerField(blank=False)
     hoursFromStart = models.IntegerField(blank=False)
     minutesFromStart = models.IntegerField(blank=False)
     stopTime = models.IntegerField(blank=False)
-    #stationArrivalTime = models.TimeField(auto_now=False,blank=False,default = '')
-    #stationDepartureTime = models.TimeField(auto_now=False,blank=False,default = '')
     address = models.TextField(blank=False,default = '')
     
     def __str__(self):
@@ -77,7 +74,7 @@ class Ticket(models.Model):
     date = models.DateTimeField(auto_now=False, auto_now_add=False,blank=False, default = datetime.now())
     type = models.CharField(max_length=10, choices=Types,default = 'Normal')
     email = models.CharField(max_length=75,blank=False,null=False,default = '')
-    phone = models.CharField(max_length=12,blank=False,null=False,default = '')
+    phone = models.CharField(max_length=13,blank=False,null=False,default = '')
     fromWhere  = models.CharField(max_length=60,blank=False,default = '')
     whereTo = models.CharField(max_length=60,blank=False,default = '')
     qr_code = models.ImageField(upload_to='qr_codes/', blank=True)
